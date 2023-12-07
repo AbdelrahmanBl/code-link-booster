@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeLink;
+namespace CodeLink\Booster;
 
 class Booster
 {

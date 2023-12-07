@@ -13,5 +13,12 @@
             "email": "abdelrahmangamal990@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CodeLink\\Booster\\BoosterServiceProvider"
+            ]
+        }
+    }
 }
