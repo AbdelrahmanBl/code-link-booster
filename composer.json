@@ -1,0 +1,17 @@
+{
+    "name": "codelink/booster",
+    "description": "this package has many classes to use in your project for the readability, clean code and performance.",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "CodeLink\\Booster\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abdelrahman Bl",
+            "email": "abdelrahmangamal990@gmail.com"
+        }
+    ],
+    "require": {}
+}
