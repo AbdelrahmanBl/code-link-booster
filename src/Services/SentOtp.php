@@ -2,11 +2,11 @@
 
 namespace CodeLink\Booster\Services;
 
-use CodeLink\Booster\Contracts\SmsContract;
-use CodeLink\Booster\Mails\OtpMail;
 use CodeLink\Booster\Models\Otp;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use CodeLink\Booster\Contracts\SmsContract;
+use Illuminate\Contracts\Mail\Mailable as MailableContract;
 
 class SentOtp
 {
@@ -23,6 +23,8 @@ class SentOtp
 
     private SmsContract $smsService;
 
+    private MailableContract $mailable;
+
     private int $otpLength = 4;
 
     CONST BY_EMAIL = 'email';
@@ -30,8 +32,13 @@ class SentOtp
 
     public function __construct()
     {
+        // set the deault sms service...
         $smsService = config('booster.services.otp_service.sms_service');
         $this->smsService = new $smsService;
+
+        // set the deault mailable...
+        $mailable = config('booster.services.otp_service.mailable');
+        $this->mailable = new $mailable;
     }
 
     public static function create(): self
@@ -73,8 +80,8 @@ class SentOtp
 
     public function sent(): bool
     {
-        $code = app()->isLocal()  || str_contains(url(), config('booster.develop_server_url'))
-
+        // set the otp static for the local mode and dynamic for the production...
+        $otp = app()->isLocal()  || str_contains(url(), config('booster.develop_server_url'))
         ? match($this->otpLength) {
             4 => '1234',
             5 => '12345',
@@ -86,23 +93,24 @@ class SentOtp
             6 => rand(111111, 999999),
         };
 
+        // save the otp hashed in database...
         Otp::query()->updateOrCreate(
             ['id' => $this->email ?? $this->mobile],
-            ['code' => $code]
+            ['otp' => $otp]
         );
 
         $message = __(
-            'message.reset_code_message',
+            'booster.sent_otp_message',
             [
-                'code'      => $code,
-                'minutes'   => config('booster.services.otp_service.otp_timeout'),
+                'otp' => $otp,
+                'minutes' => config('booster.services.otp_service.otp_timeout'),
             ]
         );
 
         try {
             switch ($this->by) {
                 case static::BY_EMAIL:
-                    Mail::to($this->email)->send(new OtpMail($message));
+                    Mail::to($this->email)->send(new $this->mailable($message));
                     break;
 
                 case static::BY_SMS:

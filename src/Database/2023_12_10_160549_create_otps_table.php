@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('otps', function (Blueprint $table) {
             $table->string('id')->index();
-            $table->string('code');
+            $table->string('otp');
             $table->timestamp('created_at')->nullable();
         });
     }

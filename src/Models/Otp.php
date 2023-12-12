@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @property string id
+ * @property string otp
+ * @property object created_at
+ * @property bool is_expired
+ */
 class Otp extends Model
 {
     use HasFactory;
@@ -18,7 +24,7 @@ class Otp extends Model
 
     protected $fillable = [
         'id',
-        'code',
+        'otp',
         'created_at',
     ];
 
@@ -26,15 +32,19 @@ class Otp extends Model
         'created_at' => 'datetime',
     ];
 
-    /**
-     * setCodeAttribute
-     *
-     * @param  string $code
-     * @return void
-     */
-    public function setCodeAttribute(string $code): void
+    public function setOtpAttribute(string $otp): void
     {
-        $this->attributes['code'] = Hash::make($code);
+        $this->attributes['otp'] = Hash::make($otp);
+    }
+
+    public function verify(string $otp): bool
+    {
+        return Hash::check($otp, $this->otp);
+    }
+
+    public function getIsExpiredAttribute(): bool
+    {
+        return now()->subMinutes(config('booster.services.otp_service.otp_timeout'))->lessThanOrEqualTo($this->created_at);
     }
 
     /**
