@@ -5,8 +5,8 @@ namespace CodeLink\Booster\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \CodeLink\Booster\Helpers\BoosterHelper sentOtpByEmail(string $email): bool
- * @method static \CodeLink\Booster\Helpers\BoosterHelper sentOtpBySms(string $mobile): bool
+ * @method static bool sentOtpByEmail(string $email)
+ * @method static bool sentOtpBySms(string $mobile)
  */
 class Booster extends Facade
 {

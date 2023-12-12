@@ -3,6 +3,7 @@
 namespace CodeLink\Booster\Services;
 
 use CodeLink\Booster\Contracts\SmsContract;
+use CodeLink\Booster\Mails\OtpMail;
 use CodeLink\Booster\Models\Otp;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -72,7 +73,7 @@ class SentOtp
 
     public function sent(): bool
     {
-        $code = $code = app()->isLocal()  // || isDevelopmentServer()
+        $code = app()->isLocal()  || str_contains(url(), config('booster.develop_server_url'))
 
         ? match($this->otpLength) {
             4 => '1234',
@@ -94,15 +95,14 @@ class SentOtp
             'message.reset_code_message',
             [
                 'code'      => $code,
-                'minutes'   => config('app.reset_timeout'),
+                'minutes'   => config('booster.services.otp_service.otp_timeout'),
             ]
         );
 
         try {
             switch ($this->by) {
                 case static::BY_EMAIL:
-                    // TODO sent message to email...
-                    // Mail::send();
+                    Mail::to($this->email)->send(new OtpMail($message));
                     break;
 
                 case static::BY_SMS:
@@ -110,7 +110,7 @@ class SentOtp
                     break;
 
                 default:
-                    throw new \Exception('Unhandled by type');
+                    throw new \Exception('Unhandled sent otp way');
                     break;
             }
         }
