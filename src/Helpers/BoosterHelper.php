@@ -7,14 +7,14 @@ use CodeLink\Booster\Services\VerifyOtp;
 
 class BoosterHelper
 {
-    public function sentOtpByEmail(string $email): bool
+    public function sentOtpByEmail(string $email, int $otpLength = null): bool
     {
-        return SentOtp::create()->toEmail($email);
+        return SentOtp::create()->setOtpLength($otpLength)->toEmail($email);
     }
 
-    public function sentOtpBySms(string $mobile): bool
+    public function sentOtpBySms(string $mobile, int $otpLength = null): bool
     {
-        return SentOtp::create()->toMobile($mobile);
+        return SentOtp::create()->setOtpLength($otpLength)->toMobile($mobile);
     }
 
     public function verifyOtp(string $target, string $otp): bool

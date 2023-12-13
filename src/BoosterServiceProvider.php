@@ -2,10 +2,12 @@
 
 namespace CodeLink\Booster;
 
-use CodeLink\Booster\Helpers\BoosterHelper;
+use Illuminate\Support\Str;
+use Illuminate\Support\ServiceProvider;
+use CodeLink\Booster\Mixins\StringMixin;
 use CodeLink\Booster\Mixins\BuilderMixin;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\ServiceProvider;
+use CodeLink\Booster\Helpers\BoosterHelper;
 
 class BoosterServiceProvider extends ServiceProvider
 {
@@ -51,8 +53,9 @@ class BoosterServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // register builder mixin...
+        // register mixins...
         Builder::mixin(new BuilderMixin);
+        Str::mixin(new StringMixin);
 
         // publish config file...
         $this->publishes([

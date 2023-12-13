@@ -2,6 +2,7 @@
 
 namespace CodeLink\Booster\Services;
 
+use Illuminate\Support\Str;
 use CodeLink\Booster\Models\Otp;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -35,6 +36,13 @@ class SentOtp
         return new self;
     }
 
+    public function setOtpLength(?int $length): self
+    {
+        $this->otpLength = $length ?? $this->otpLength;
+
+        return $this;
+    }
+
     public function toEmail($email): bool
     {
         $this->email = $email;
@@ -53,34 +61,10 @@ class SentOtp
         return $this->sent();
     }
 
-    public function setFiveOtpLength(): self
-    {
-        $this->otpLength = 5;
-
-        return $this;
-    }
-
-    public function setSixOtpLength(): self
-    {
-        $this->otpLength = 6;
-
-        return $this;
-    }
-
     public function sent(): bool
     {
         // set the otp static for the local mode and dynamic for the production...
-        $otp = app()->isLocal()  || str_contains(url(), config('booster.develop_server_url'))
-        ? match($this->otpLength) {
-            4 => '1234',
-            5 => '12345',
-            6 => '123456',
-        }
-        : (string) match($this->otpLength) {
-            4 => rand(1111, 9999),
-            5 => rand(11111, 99999),
-            6 => rand(111111, 999999),
-        };
+        $otp = Str::otp($this->otpLength);
 
         // save the otp hashed in database...
         Otp::query()->updateOrCreate(
