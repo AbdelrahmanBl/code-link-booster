@@ -26,6 +26,8 @@ return [
         */
         'otp_service' => [
             'allow' => env('BOOSTER_ALLOW_OTP_SERVICE', true),
+            'mailable_subject' => env('BOOSTER_MAILABLE_SUBJECT', 'Otp'),
+            'mailable_markdown' => env('BOOSTER_MAILABLE_MARKDOWN', 'booster::otp'),
             'mailable' => env('BOOSTER_MAILABLE', \CodeLink\Booster\Mails\OtpMail::class),
             'sms_service' => env('BOOSTER_SMS_SERVICE', \CodeLink\Booster\Services\SmsService::class),
             'otp_timeout' => env('BOOSTER_OTP_TIMEOUT', 10),

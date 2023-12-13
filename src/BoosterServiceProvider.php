@@ -13,6 +13,10 @@ class BoosterServiceProvider extends ServiceProvider
 
     private string $databaseDirectory = __DIR__ . '/Database';
 
+    private string $viewsPath = __DIR__ . '/resources/views';
+
+    private string $translationsPath = __DIR__ . '/resources/lang';
+
     private array $migrationPaths = [];
 
     /**
@@ -26,6 +30,12 @@ class BoosterServiceProvider extends ServiceProvider
         // register config file...
         $this->mergeConfigFrom($this->configFile, 'booster');
 
+        // load views directory...
+        $this->loadViewsFrom($this->viewsPath, 'booster');
+
+        // load lang directory...
+        $this->loadTranslationsFrom($this->translationsPath, 'booster');
+
         // register migration for otps
         if(config('booster.services.otp_service.allow')) {
             $this->migrationPaths[] = $this->databaseDirectory . DIRECTORY_SEPARATOR . '2023_12_10_160549_create_otps_table.php';
@@ -33,6 +43,7 @@ class BoosterServiceProvider extends ServiceProvider
 
         // register migration paths...
         $this->loadMigrationsFrom($this->migrationPaths);
+
     }
 
     /**
@@ -46,6 +57,16 @@ class BoosterServiceProvider extends ServiceProvider
         // publish config file...
         $this->publishes([
             $this->configFile => config_path('booster.php'),
-        ], 'booster');
+        ], 'booster-config');
+
+        // publish views...
+        $this->publishes([
+            $this->viewsPath => resource_path('views/vendor/booster'),
+        ], 'booster-views');
+
+        // publish lang...
+        $this->publishes([
+            $this->translationsPath => lang_path('vendor/booster'),
+        ], 'booster-lang');
     }
 }

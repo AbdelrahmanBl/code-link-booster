@@ -30,17 +30,6 @@ class SentOtp
     CONST BY_EMAIL = 'email';
     CONST BY_SMS = 'sms';
 
-    public function __construct()
-    {
-        // set the deault sms service...
-        $smsService = config('booster.services.otp_service.sms_service');
-        $this->smsService = new $smsService;
-
-        // set the deault mailable...
-        $mailable = config('booster.services.otp_service.mailable');
-        $this->mailable = new $mailable;
-    }
-
     public static function create(): self
     {
         return new self;
@@ -99,21 +88,22 @@ class SentOtp
             ['otp' => $otp]
         );
 
-        $message = __(
-            'booster.sent_otp_message',
-            [
-                'otp' => $otp,
-                'minutes' => config('booster.services.otp_service.otp_timeout'),
-            ]
-        );
+        $message = trans('booster::message.sent_otp_message', [
+            'otp' => $otp,
+            'minutes' => config('booster.services.otp_service.otp_timeout'),
+        ]);
 
         try {
             switch ($this->by) {
                 case static::BY_EMAIL:
-                    Mail::to($this->email)->send(new $this->mailable($message));
+                    $mailable = config('booster.services.otp_service.mailable');
+                    $this->mailable = new $mailable($message);
+                    Mail::to($this->email)->send($this->mailable);
                     break;
 
                 case static::BY_SMS:
+                    $smsService = config('booster.services.otp_service.sms_service');
+                    $this->smsService = new $smsService;
                     $this->smsService->send($this->mobile, $message);
                     break;
 

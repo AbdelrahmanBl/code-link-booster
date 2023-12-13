@@ -17,15 +17,15 @@ class VerifyOtp
         $model = Otp::query()->find($target);
 
         if(! $model) {
-            throw ValidationException::withMessages(['message' => __('booster.code_missing')]);
+            throw ValidationException::withMessages(['message' => trans('booster::message.code_missing')]);
         }
 
         if($model->is_expired) {
-            throw ValidationException::withMessages(['message' => __('booster.code_expired')]);
+            throw ValidationException::withMessages(['message' => trans('booster::message.code_expired')]);
         }
 
         if(! $model->verify($otp)) {
-            throw ValidationException::withMessages(['message' => __('booster.code_wrong')]);
+            throw ValidationException::withMessages(['message' => trans('booster::message.code_wrong')]);
         }
 
         return true;

@@ -13,14 +13,12 @@ class OtpMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    private $message;
-
     /**
      * Create a new message instance.
      */
-    public function __construct($message)
+    public function __construct(public $message)
     {
-        $this->message = $message;
+        // ...
     }
 
     /**
@@ -29,7 +27,7 @@ class OtpMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Otp',
+            subject: config('booster.services.otp_service.mailable_subject'),
         );
     }
 
@@ -39,7 +37,7 @@ class OtpMail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            text: $this->message,
+            markdown: config('booster.services.otp_service.mailable_markdown')
         );
     }
 }
