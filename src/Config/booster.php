@@ -60,6 +60,9 @@ return [
 
             # The default label key field for chart builder [count - sum] methods.
             'label_key' => env('BOOSTER_CHART_SERVICE_LABEL_KEY', 'name'),
+
+            # The default id key field for chart builder [count - sum] methods.
+            'id_key' => env('BOOSTER_CHART_SERVICE_ID_KEY', 'id'),
         ],
     ]
 ];

@@ -73,7 +73,8 @@ class ChartBuilder
             $labelKey = config('booster.services.chart_service.label_key');
         }
 
-        $data = $builder->whereHas("{$relationName}")
+        $data = $builder->select([config('booster.services.chart_service.id_key'), $labelKey])
+        ->whereHas("{$relationName}")
         ->withCount("{$relationName}")
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
@@ -106,7 +107,8 @@ class ChartBuilder
             $labelKey = config('booster.services.chart_service.label_key');
         }
 
-        $data = $builder->whereHas("{$relationName}")
+        $data = $builder->select([config('booster.services.chart_service.id_key'), $labelKey])
+        ->whereHas("{$relationName}")
         ->withSum("{$relationName}", $sumKey)
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
