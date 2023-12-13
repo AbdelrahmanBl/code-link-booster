@@ -1,12 +1,13 @@
 <?php
 
-namespace CodeLink\Booster\Services;
+namespace CodeLink\Booster\Services\Otp;
 
 use Illuminate\Support\Str;
 use CodeLink\Booster\Models\Otp;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use CodeLink\Booster\Contracts\SmsContract;
+use CodeLink\Booster\Enums\OtpGateway;
 use Illuminate\Contracts\Mail\Mailable as MailableContract;
 
 class SentOtp
@@ -15,22 +16,13 @@ class SentOtp
 
     private string $mobile;
 
-    /**
-     * notify by [email | sms]
-     *
-     * @var string
-     */
-    private string $by;
+    private OtpGateway $gateway;
 
     private SmsContract $smsService;
 
     private MailableContract $mailable;
 
-    private int $otpLength = 4;
-
-    // TODO make it as enum [OtpGateway]...
-    CONST BY_EMAIL = 'email';
-    CONST BY_SMS = 'sms';
+    private int $otpLength;
 
     public static function create(): self
     {
@@ -39,7 +31,7 @@ class SentOtp
 
     public function setOtpLength(?int $length): self
     {
-        $this->otpLength = $length ?? $this->otpLength;
+        $this->otpLength = $length ?? config('booster.services.otp_service.otp_length');
 
         return $this;
     }
@@ -48,7 +40,7 @@ class SentOtp
     {
         $this->email = $email;
 
-        $this->by = static::BY_EMAIL;
+        $this->gateway = OtpGateway::EMAIL;
 
         return $this->sent();
     }
@@ -57,7 +49,7 @@ class SentOtp
     {
         $this->mobile = $mobile;
 
-        $this->by = static::BY_SMS;
+        $this->gateway = OtpGateway::SMS;
 
         return $this->sent();
     }
@@ -80,21 +72,19 @@ class SentOtp
         ]);
 
         try {
-            switch ($this->by) {
-                case static::BY_EMAIL:
+            switch ($this->gateway) {
+                // handle sending otp by email...
+                case OtpGateway::EMAIL:
                     $mailable = config('booster.services.otp_service.mailable');
                     $this->mailable = new $mailable($message);
                     Mail::to($this->email)->send($this->mailable);
                     break;
 
-                case static::BY_SMS:
+                // handle sending otp by sms...
+                case OtpGateway::SMS:
                     $smsService = config('booster.services.otp_service.sms_service');
                     $this->smsService = new $smsService;
                     $this->smsService->send($this->mobile, $message);
-                    break;
-
-                default:
-                    throw new \Exception('Unhandled sent otp way');
                     break;
             }
         }

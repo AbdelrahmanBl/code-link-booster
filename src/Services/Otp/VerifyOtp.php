@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeLink\Booster\Services;
+namespace CodeLink\Booster\Services\Otp;
 
 use CodeLink\Booster\Models\Otp;
 use Illuminate\Validation\ValidationException;
