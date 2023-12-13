@@ -8,6 +8,8 @@ use CodeLink\Booster\Mixins\StringMixin;
 use CodeLink\Booster\Mixins\BuilderMixin;
 use Illuminate\Database\Eloquent\Builder;
 use CodeLink\Booster\Helpers\BoosterHelper;
+use CodeLink\Booster\Mixins\AppMixin;
+use Illuminate\Support\Facades\App;
 
 class BoosterServiceProvider extends ServiceProvider
 {
@@ -56,6 +58,7 @@ class BoosterServiceProvider extends ServiceProvider
         // register mixins...
         Builder::mixin(new BuilderMixin);
         Str::mixin(new StringMixin);
+        App::mixin(new AppMixin);
 
         // publish config file...
         $this->publishes([

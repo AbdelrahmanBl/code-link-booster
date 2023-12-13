@@ -6,18 +6,18 @@ class StringMixin
 {
     public function otp()
     {
-        return function($otpLength = 4) {
-            return app()->isLocal()  || str_contains(url(''), config('booster.develop_server_url'))
-            ? match($otpLength) {
-                5 => '12345',
-                6 => '123456',
-                default => '1234',
+        return function($length = 4) {
+
+            $isDev = app()->isDev();
+
+            $otp = '';
+            for($i = 0; $i < $length; $i++) {
+                $otp .= $isDev
+                ? 0
+                : rand(0, 9);
             }
-            : (string) match($otpLength) {
-                5 => rand(11111, 99999),
-                6 => rand(111111, 999999),
-                default => rand(1111, 9999),
-            };
+
+            return $otp;
         };
     }
 }

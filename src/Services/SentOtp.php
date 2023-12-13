@@ -28,6 +28,7 @@ class SentOtp
 
     private int $otpLength = 4;
 
+    // TODO make it as enum [OtpGateway]...
     CONST BY_EMAIL = 'email';
     CONST BY_SMS = 'sms';
 
@@ -61,6 +62,7 @@ class SentOtp
         return $this->sent();
     }
 
+    // TODO add enum param $gateway...
     public function sent(): bool
     {
         // set the otp static for the local mode and dynamic for the production...
