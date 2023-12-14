@@ -2,6 +2,7 @@
 
 namespace CodeLink\Booster;
 
+use CodeLink\Booster\Console\ReportMakeCommand;
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
 use CodeLink\Booster\Mixins\StringMixin;
@@ -20,6 +21,8 @@ class BoosterServiceProvider extends ServiceProvider
     private string $viewsPath = __DIR__ . '/resources/views';
 
     private string $translationsPath = __DIR__ . '/resources/lang';
+
+    private string $stubsPath = __DIR__ . '/Console/stubs';
 
     private array $migrationPaths = [];
 
@@ -48,6 +51,9 @@ class BoosterServiceProvider extends ServiceProvider
         // register migration paths...
         $this->loadMigrationsFrom($this->migrationPaths);
 
+        // register commands...
+        $this->commands([ReportMakeCommand::class]);
+
     }
 
     /**
@@ -74,5 +80,10 @@ class BoosterServiceProvider extends ServiceProvider
         $this->publishes([
             $this->translationsPath => lang_path('vendor/booster'),
         ], 'booster-lang');
+
+        // publish stubs...
+        $this->publishes([
+            $this->stubsPath => base_path('stubs'),
+        ], 'booster-stubs');
     }
 }

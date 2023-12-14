@@ -1,0 +1,25 @@
+<?php
+
+namespace {{ namespace }};
+
+use CodeLink\Booster\Facades\Booster;
+
+class {{ class }}
+{
+    protected $report;
+
+    public function __construct()
+    {
+        $this->report = Booster::report();
+    }
+
+    public static function prepare()
+    {
+        return new self;
+    }
+
+    public function get()
+    {
+        return $this->report->generate();
+    }
+}
