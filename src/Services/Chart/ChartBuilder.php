@@ -25,6 +25,9 @@ class ChartBuilder
             $endAt      = today()->addYear();
         }
 
+        $startFrom = $startFrom->firstOfMonth();
+        $endAt = $endAt->endOfMonth();
+
         if(! $dateField) {
             $dateField = config('booster.services.chart_service.monthly_date_field');
         }
