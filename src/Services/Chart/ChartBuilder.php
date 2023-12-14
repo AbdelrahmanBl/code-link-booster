@@ -17,12 +17,12 @@ class ChartBuilder
      */
     public static function monthly($builder, $dateField = null, $fromNow = false): array
     {
-        $endAt      = today()->addMonth();
+        $endAt      = today();
         $startFrom  = today()->addMonth()->subYear();
 
         if($fromNow) {
             $startFrom  = today();
-            $endAt      = today()->addYear();
+            $endAt      = today()->subMonth()->addYear();
         }
 
         $startFrom = $startFrom->firstOfMonth();
