@@ -2,6 +2,8 @@
 
 namespace CodeLink\Booster\Helpers;
 
+use CodeLink\Booster\Transformers\CaseSelectBoxTransformer;
+use CodeLink\Booster\Transformers\TableSelectBoxTransformer;
 use CodeLink\Booster\Services\Chart\Chart;
 use CodeLink\Booster\Services\Chart\ChartBuilder;
 use CodeLink\Booster\Services\Chart\ChartGenerator;
@@ -65,4 +67,20 @@ class BoosterHelper
     {
         return ChartBuilder::sum($builder, $relationName, $sumKey, $labelKey, 'asc');
     }
+
+    public function getSelectBoxEnumOptions(array $cases, string $locale = NULL): array
+    {
+        return CaseSelectBoxTransformer::make()->transform($cases, $locale);
+    }
+
+    public function getSelectBoxTableOptions(Builder $queryBuilder, string $labelKey = null, string $valueKey = null): array
+    {
+        return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey);
+    }
+
+    // TODO for handle casts attributes....
+    // public function getSelectBoxTableWithCastsOptions(Builder $queryBuilder, array $extraSelect, string $labelKey = null, string $valueKey = null)
+    // {
+    //     return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey, $extraSelect);
+    // }
 }

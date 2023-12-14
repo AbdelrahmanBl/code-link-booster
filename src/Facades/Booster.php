@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static array generateCountReportAsc(Builder $builder, string $relationName, string $labelKey = null)
  * @method static array generateSumReportDesc(Builder $builder, string $relationName, string $sumKey, string $labelKey = null)
  * @method static array generateSumReportAsc(Builder $builder, string $relationName, string $sumKey, string $labelKey = null)
+ * @method static array getSelectBoxEnumOptions(array $cases, string $locale = NULL)
+ * @method static array getSelectBoxTableOptions(Builder $queryBuilder, string $labelKey = null, string $valueKey = null)
  */
 class Booster extends Facade
 {

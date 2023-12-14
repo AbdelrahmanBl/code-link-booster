@@ -64,5 +64,34 @@ return [
             # The default id key field for chart builder [count - sum] methods.
             'id_key' => env('BOOSTER_CHART_SERVICE_ID_KEY', 'id'),
         ],
+    ],
+
+    'transformers' => [
+
+        /*
+        |--------------------------------------------------------------------------
+        | Select Box
+        |--------------------------------------------------------------------------
+        |
+        */
+        'select_box' => [
+            'label_key' => env('BOOSTER_SELECT_BOX_LABEL_KEY', 'label'),
+            'value_key' => env('BOOSTER_SELECT_BOX_VALUE_KEY', 'value'),
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Select Box Table
+        |--------------------------------------------------------------------------
+        |
+        */
+        'select_box_table' => [
+
+            # The default name key field for select box label.
+            'label_key' => env('BOOSTER_SELECT_BOX_TABLE_LABEL_KEY', 'name'),
+
+            # The default value key field for select box value.
+            'value_key' => env('BOOSTER_SELECT_BOX_TABLE_VALUE_KEY', 'id'),
+        ]
     ]
 ];
