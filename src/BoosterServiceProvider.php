@@ -2,6 +2,7 @@
 
 namespace CodeLink\Booster;
 
+use CodeLink\Booster\Console\EnumMakeCommand;
 use CodeLink\Booster\Console\ReportMakeCommand;
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
@@ -10,6 +11,8 @@ use CodeLink\Booster\Mixins\BuilderMixin;
 use Illuminate\Database\Eloquent\Builder;
 use CodeLink\Booster\Helpers\BoosterHelper;
 use CodeLink\Booster\Mixins\AppMixin;
+use CodeLink\Booster\Mixins\ArrayMixin;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 
 class BoosterServiceProvider extends ServiceProvider
@@ -52,7 +55,10 @@ class BoosterServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom($this->migrationPaths);
 
         // register commands...
-        $this->commands([ReportMakeCommand::class]);
+        $this->commands([
+            ReportMakeCommand::class,
+            EnumMakeCommand::class,
+        ]);
 
     }
 
@@ -65,6 +71,7 @@ class BoosterServiceProvider extends ServiceProvider
         Builder::mixin(new BuilderMixin);
         Str::mixin(new StringMixin);
         App::mixin(new AppMixin);
+        Arr::mixin(new ArrayMixin);
 
         // publish config file...
         $this->publishes([

@@ -20,6 +20,10 @@ class {{ class }}
 
     public function get()
     {
+        // $this->report->addPieChart(Booster::chart());
+        // $this->report->addBarChart(Booster::chart());
+        // $this->report->addLineChart(Booster::chart());
+
         return $this->report->generate();
     }
 }

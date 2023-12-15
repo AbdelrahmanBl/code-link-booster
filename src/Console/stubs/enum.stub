@@ -1,0 +1,12 @@
+<?php
+
+namespace {{ namespace }};
+
+use CodeLink\Booster\Traits\EnumHandler;
+
+enum {{ class }}: string
+{
+    use EnumHandler;
+
+    // case ENUM = 'enum';
+}
