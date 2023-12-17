@@ -44,7 +44,6 @@ class SentOtp
         return $this->sent($mobile, OtpGateway::SMS);
     }
 
-    // TODO add enum param $gateway...
     public function sent(string $target, OtpGateway $gateway): bool
     {
         // set the otp static for the local mode and dynamic for the production...
