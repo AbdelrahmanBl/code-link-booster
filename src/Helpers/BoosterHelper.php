@@ -2,25 +2,27 @@
 
 namespace CodeLink\Booster\Helpers;
 
-use CodeLink\Booster\Transformers\CaseSelectBoxTransformer;
-use CodeLink\Booster\Transformers\TableSelectBoxTransformer;
+use Illuminate\Database\Eloquent\Builder;
 use CodeLink\Booster\Services\Chart\Chart;
+use CodeLink\Booster\Services\Otp\SendOtp;
+use CodeLink\Booster\Services\Otp\VerifyOtp;
 use CodeLink\Booster\Services\Chart\ChartBuilder;
 use CodeLink\Booster\Services\Chart\ChartGenerator;
-use CodeLink\Booster\Services\Otp\SentOtp;
-use CodeLink\Booster\Services\Otp\VerifyOtp;
-use Illuminate\Database\Eloquent\Builder;
+use CodeLink\Booster\Notifications\DatabaseNotification;
+use CodeLink\Booster\Notifications\FcmNotification;
+use CodeLink\Booster\Transformers\CaseSelectBoxTransformer;
+use CodeLink\Booster\Transformers\TableSelectBoxTransformer;
 
 class BoosterHelper
 {
-    public function sentOtpByEmail(string $email, int $otpLength = null): bool
+    public function sendOtpByEmail(string $email, int $otpLength = null): bool
     {
-        return SentOtp::create()->setOtpLength($otpLength)->toEmail($email);
+        return SendOtp::create()->setOtpLength($otpLength)->toEmail($email);
     }
 
-    public function sentOtpBySms(string $mobile, int $otpLength = null): bool
+    public function sendOtpBySms(string $mobile, int $otpLength = null): bool
     {
-        return SentOtp::create()->setOtpLength($otpLength)->toMobile($mobile);
+        return SendOtp::create()->setOtpLength($otpLength)->toMobile($mobile);
     }
 
     public function verifyOtp(string $target, string $otp): bool
@@ -83,4 +85,30 @@ class BoosterHelper
     // {
     //     return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey, $extraSelect);
     // }
+
+
+    // TODO add to readMe
+    // php artisan notifications:table
+    // php artisan migrate
+    public function localeDatabaseNotification(string $locale, string $localeBody, string $target = null, string $targetId = null)
+    {
+        return new DatabaseNotification($locale, $localeBody, $target, $targetId);
+    }
+
+    public function customDatabaseNotification(string $title, string $body, string $target = null, string $targetId = null)
+    {
+        return new DatabaseNotification(null, compact('title', 'body'), $target, $targetId);
+    }
+
+    // TODO add to readMe
+    // install package `laravel-notification-channels/fcm`
+    public function localeFcmNotification(string $locale, string $localeBody, string $target = null, string $targetId = null)
+    {
+        return new FcmNotification($locale, $localeBody, $target, $targetId);
+    }
+
+    public function customFcmNotification(string $title, string $body, string $target = null, string $targetId = null)
+    {
+        return new FcmNotification(null, compact('title', 'body'), $target, $targetId);
+    }
 }

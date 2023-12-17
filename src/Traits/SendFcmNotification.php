@@ -14,9 +14,14 @@ trait SendFcmNotification
 {
     protected $target;
 
-    protected $target_id;
+    protected $targetId;
 
-    protected $locale = '';
+    /**
+     * tranlate key in locale must contain[title, body]
+     *
+     * @var string|null
+     */
+    protected $locale = null;
 
     protected $body = [];
 
@@ -31,7 +36,7 @@ trait SendFcmNotification
         return FcmMessage::create()
                         ->setData([
                             'target' => $this->target,
-                            'id' => $this->target_id,
+                            'id' => $this->targetId,
                         ])
                         ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
                                 ->setTitle(__("{$this->locale}.title"))

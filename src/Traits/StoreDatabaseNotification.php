@@ -4,18 +4,18 @@ namespace CodeLink\Booster\Traits;
 
 trait StoreDatabaseNotification
 {
-    protected $target;
+    public $target;
 
-    protected $target_id;
+    public $targetId;
 
     /**
      * tranlate key in locale must contain[title, body]
      *
-     * @var mixed
+     * @var string|null
      */
-    protected $locale = NULL;
+    public $locale = null;
 
-    protected $body = [];
+    public $body = [];
 
     /**
      * Get the array representation of the notification.
@@ -26,7 +26,7 @@ trait StoreDatabaseNotification
     {
         return [
             'target' => $this->target,
-            'target_id' => $this->target_id,
+            'target_id' => $this->targetId,
             'locale' => $this->locale,
             'body' => $this->body,
         ];

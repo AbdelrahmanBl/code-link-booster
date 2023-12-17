@@ -9,7 +9,7 @@ use CodeLink\Booster\Contracts\SmsContract;
 use CodeLink\Booster\Enums\OtpGateway;
 use Illuminate\Contracts\Mail\Mailable as MailableContract;
 
-class SentOtp
+class SendOtp
 {
     private SmsContract $smsService;
 
