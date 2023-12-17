@@ -26,6 +26,9 @@ return [
             # Allow/Disallow the otp service in the booster.
             'allow' => env('BOOSTER_OTP_ALLOW', true),
 
+            # Otp model for storing the verification code.
+            'model' => \CodeLink\Booster\Models\Otp::class,
+
             # Mailable subject for email title.
             'mailable_subject' => env('BOOSTER_OTP_MAILABLE_SUBJECT', 'Otp'),
 

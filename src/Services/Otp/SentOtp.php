@@ -3,7 +3,6 @@
 namespace CodeLink\Booster\Services\Otp;
 
 use Illuminate\Support\Str;
-use CodeLink\Booster\Models\Otp;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use CodeLink\Booster\Contracts\SmsContract;
@@ -12,8 +11,6 @@ use Illuminate\Contracts\Mail\Mailable as MailableContract;
 
 class SentOtp
 {
-    private string $mobile;
-
     private SmsContract $smsService;
 
     private MailableContract $mailable;
@@ -54,7 +51,8 @@ class SentOtp
         $otp = Str::otp($this->otpLength ?? $this->getDefaultOtpLength());
 
         // save the otp hashed in database...
-        Otp::query()->updateOrCreate(
+        $otpModel = config('booster.services.otp_service.model');
+        $otpModel::query()->updateOrCreate(
             ['id' => $target],
             ['otp' => $otp]
         );
