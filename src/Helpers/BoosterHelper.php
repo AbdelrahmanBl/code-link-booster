@@ -35,6 +35,34 @@ class BoosterHelper
         return VerifyOtp::create()->verify($target, $otp);
     }
 
+    public function getSelectBoxEnumOptions(array $cases, string $locale = NULL): array
+    {
+        return CaseSelectBoxTransformer::make()->transform($cases, $locale);
+    }
+
+    public function getSelectBoxTableOptions(Builder $queryBuilder, string $labelKey = null, string $valueKey = null): array
+    {
+        return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey);
+    }
+
+    public function getSelectBoxTableCastOptions(Builder $queryBuilder, array $extraSelect, string $labelKey = null, string $valueKey = null)
+    {
+        return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey, $extraSelect);
+    }
+
+    // TODO add to readMe
+    // php artisan notifications:table && php artisan migrate
+    // install package `laravel-notification-channels/fcm` for NotifyBy::FCM
+    public function localeNotification(string $locale, array $localeBody, string $target = null, string $targetId = null, array|NotifyBy $via = [])
+    {
+        return new MixedNotification($locale, $localeBody, $target, $targetId, $via);
+    }
+
+    public function customNotification(string $title, string $body, string $target = null, string $targetId = null, array|NotifyBy $via = [])
+    {
+        return new MixedNotification(null, compact('title', 'body'), $target, $targetId, $via);
+    }
+
     public function chart(string $title = '', $data = []): Chart
     {
         return new Chart($title, $data);
@@ -45,7 +73,7 @@ class BoosterHelper
         return new ChartGenerator;
     }
 
-    public function generateMonthlyReportFromNow(Builder $builder, string $dateField = null): array
+    public function generateMonthlyReportAfterNow(Builder $builder, string $dateField = null): array
     {
         return ChartBuilder::monthly($builder, $dateField, true);
     }
@@ -73,33 +101,5 @@ class BoosterHelper
     public function generateSumReportAsc(Builder $builder, string $relationName, string $sumKey, string $labelKey = null): array
     {
         return ChartBuilder::sum($builder, $relationName, $sumKey, $labelKey, 'asc');
-    }
-
-    public function getSelectBoxEnumOptions(array $cases, string $locale = NULL): array
-    {
-        return CaseSelectBoxTransformer::make()->transform($cases, $locale);
-    }
-
-    public function getSelectBoxTableOptions(Builder $queryBuilder, string $labelKey = null, string $valueKey = null): array
-    {
-        return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey);
-    }
-
-    public function getSelectBoxTableCastOptions(Builder $queryBuilder, array $extraSelect, string $labelKey = null, string $valueKey = null)
-    {
-        return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey, $extraSelect);
-    }
-
-    // TODO add to readMe
-    // php artisan notifications:table && php artisan migrate
-    // install package `laravel-notification-channels/fcm` for NotifyBy::FCM
-    public function localeNotification(string $locale, array $localeBody, string $target = null, string $targetId = null, array|NotifyBy $via = [])
-    {
-        return new MixedNotification($locale, $localeBody, $target, $targetId, $via);
-    }
-
-    public function customNotification(string $title, string $body, string $target = null, string $targetId = null, array|NotifyBy $via = [])
-    {
-        return new MixedNotification(null, compact('title', 'body'), $target, $targetId, $via);
     }
 }
