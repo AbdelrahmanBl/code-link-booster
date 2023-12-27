@@ -71,6 +71,8 @@ return [
 
     'transformers' => [
 
+        'enum_translation_file' => 'enums',
+
         /*
         |--------------------------------------------------------------------------
         | Select Box
