@@ -22,18 +22,11 @@ composer dump-autoload
 ## Setup
 Go to config/app.php and then add booster service provider to providers
 ```
-'providers' => ServiceProvider::defaultProviders()->merge([
-    /*
-     * Package Service Providers...
-     */
-    CodeLink\Booster\BoosterServiceProvider::class,
-])->toArray(),
+CodeLink\Booster\BoosterServiceProvider::class,
 ```
 Then add Booster facade as alias
 ```
-'aliases' => Facade::defaultAliases()->merge([
-    'Booster' => CodeLink\Booster\Facades\Booster::class,
-])->toArray(),
+'Booster' => CodeLink\Booster\Facades\Booster::class,
 ```
 
 ## Publishes
