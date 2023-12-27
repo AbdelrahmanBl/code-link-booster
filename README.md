@@ -28,7 +28,7 @@ Then add Booster facade as alias
 ```
 'Booster' => CodeLink\Booster\Facades\Booster::class,
 ```
-You can run this command in you console to ensure that the package is installed successfully
+You can run this command in your console to ensure that the package is installed successfully
 ```
 php artisan tinker
 ```
