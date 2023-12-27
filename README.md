@@ -28,6 +28,15 @@ Then add Booster facade as alias
 ```
 'Booster' => CodeLink\Booster\Facades\Booster::class,
 ```
+You can run this command in you console to ensure that the package is installed successfully
+```
+php artisan tinker
+```
+Then
+```
+Booster::ping();
+```
+And you will see the dump message `Welcome in code link booster`.
 
 ## Publishes
 Publishes
