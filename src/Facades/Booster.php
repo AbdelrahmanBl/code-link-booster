@@ -5,6 +5,7 @@ namespace CodeLink\Booster\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @method static public function ping(): void
  * @method static bool sendOtpByEmail(string $email, int $otpLength = null)
  * @method static bool sendOtpBySms(string $mobile, int $otpLength = null)
  * @method static bool verifyOtp(string $target, string $otp)

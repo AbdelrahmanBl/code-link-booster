@@ -15,6 +15,11 @@ use CodeLink\Booster\Transformers\TableSelectBoxTransformer;
 
 class BoosterHelper
 {
+    public function ping(): void
+    {
+        dd('Welcome in code link booster');
+    }
+
     public function sendOtpByEmail(string $email, int $otpLength = null): bool
     {
         return SendOtp::create()->setOtpLength($otpLength)->toEmail($email);
