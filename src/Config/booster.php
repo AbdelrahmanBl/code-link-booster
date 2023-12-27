@@ -7,7 +7,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | The development server url to be used in:
-    | - check devlopment mode in otp service for generate static code `1234` when not in proudction.
+    | - check devlopment mode in otp service for generate static code `0000` (depending on the otp length) when not in proudction.
     |
     */
     'develop_server_url' => env('BOOSTER_DEVELOP_SERVER_URL', 'dev.test.com'),
@@ -24,7 +24,7 @@ return [
         */
         'otp_service' => [
             # Allow/Disallow the otp service in the booster.
-            'allow' => env('BOOSTER_OTP_ALLOW', true),
+            'allow' => env('BOOSTER_OTP_ALLOW', false),
 
             # Otp model for storing the verification code.
             'model' => \CodeLink\Booster\Models\Otp::class,
@@ -96,5 +96,13 @@ return [
             # The default value key field for select box value.
             'value_key' => 'id',
         ]
+    ],
+
+    'notifications' => [
+
+        'via' => \CodeLink\Booster\Enums\NotifyBy::values(),
+
+        'fcm_channel' => NULL, // \NotificationChannels\Fcm\FcmChannel::class,
+
     ]
 ];

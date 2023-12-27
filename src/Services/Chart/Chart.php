@@ -14,12 +14,9 @@ class Chart
         $this->data = $data;
     }
 
-    public function add(string $label, $value): self
+    public function add(string $label, $value, $color = null): self
     {
-        $this->data[] = [
-            'label' => $label,
-            'value' => $value,
-        ];
+        $this->data[] = compact('label', 'value', 'color');
 
         return $this;
     }

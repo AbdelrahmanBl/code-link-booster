@@ -21,7 +21,7 @@ trait SendFcmNotification
      *
      * @var string|null
      */
-    protected $locale = null;
+    protected $translation = null;
 
     protected $body = [];
 
@@ -39,9 +39,9 @@ trait SendFcmNotification
                             'id' => $this->targetId,
                         ])
                         ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                                ->setTitle(__("{$this->locale}.title"))
+                                ->setTitle(__("{$this->translation}.title"))
                                 ->setBody(
-                                    __("{$this->locale}.body", Arr::translateValues($this->body))
+                                    __("{$this->translation}.body", Arr::translateValues($this->body))
                                 )
                                 ->setImage(''))
                         ->setAndroid(

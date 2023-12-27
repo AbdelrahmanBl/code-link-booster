@@ -11,7 +11,7 @@ class TableSelectBoxTransformer
         return new self;
     }
 
-    public function transform(Builder $queryBuilder, string $labelKey = null, string $valueKey = null)
+    public function transform(Builder $queryBuilder, string $labelKey = null, string $valueKey = null, array $extraSelect = [])
     {
         if(empty($labelKey)) {
             $labelKey = config('booster.transformers.select_box_table.label_key');
@@ -21,7 +21,11 @@ class TableSelectBoxTransformer
             $valueKey = config('booster.transformers.select_box_table.value_key');
         }
 
-        return $queryBuilder->select($valueKey, $labelKey)
+        $select = empty($extraSelect)
+        ? [$labelKey, $valueKey]
+        : $extraSelect;
+
+        return $queryBuilder->select($select)
         ->get()
         ->map(fn($item) => [
             config('booster.transformers.select_box.label_key') => $item->{$labelKey},

@@ -17,21 +17,21 @@ class NotificationResource extends JsonResource
         return [
             'target' => $this->data['target'],
             'target_id' => $this->data['target_id'],
-            ...$this->when($locale = $this->data['locale'],
-                [
-                    'title' => __("{$locale}.title"),
+            'created_at' => $this->created_at?->diffForHumans(),
+            'is_read' => !! $this->read_at,
+            ...match(true) {
+                !! ($translation = $this->data['translation']) => [
+                    'title' => __("{$translation}.title"),
                     'body' => __(
-                        "{$locale}.body",
+                        "{$translation}.body",
                         $this->data['body']
                     ),
                 ],
-                [
+                default => [
                     'title' => $this->data['body']['title'],
                     'body' => $this->data['body']['body'],
                 ]
-            ),
-            'created_at' => $this->created_at?->diffForHumans(),
-            'is_read' => !! $this->read_at,
+            },
         ];
     }
 }

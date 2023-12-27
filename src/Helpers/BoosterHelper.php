@@ -2,14 +2,14 @@
 
 namespace CodeLink\Booster\Helpers;
 
+use CodeLink\Booster\Enums\NotifyBy;
 use Illuminate\Database\Eloquent\Builder;
 use CodeLink\Booster\Services\Chart\Chart;
 use CodeLink\Booster\Services\Otp\SendOtp;
 use CodeLink\Booster\Services\Otp\VerifyOtp;
 use CodeLink\Booster\Services\Chart\ChartBuilder;
 use CodeLink\Booster\Services\Chart\ChartGenerator;
-use CodeLink\Booster\Notifications\DatabaseNotification;
-use CodeLink\Booster\Notifications\FcmNotification;
+use CodeLink\Booster\Notifications\MixedNotification;
 use CodeLink\Booster\Transformers\CaseSelectBoxTransformer;
 use CodeLink\Booster\Transformers\TableSelectBoxTransformer;
 
@@ -80,35 +80,21 @@ class BoosterHelper
         return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey);
     }
 
-    // TODO for handle casts attributes....
-    // public function getSelectBoxTableWithCastsOptions(Builder $queryBuilder, array $extraSelect, string $labelKey = null, string $valueKey = null)
-    // {
-    //     return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey, $extraSelect);
-    // }
-
-
-    // TODO add to readMe
-    // php artisan notifications:table
-    // php artisan migrate
-    public function localeDatabaseNotification(string $locale, string $localeBody, string $target = null, string $targetId = null)
+    public function getSelectBoxTableCastOptions(Builder $queryBuilder, array $extraSelect, string $labelKey = null, string $valueKey = null)
     {
-        return new DatabaseNotification($locale, $localeBody, $target, $targetId);
-    }
-
-    public function customDatabaseNotification(string $title, string $body, string $target = null, string $targetId = null)
-    {
-        return new DatabaseNotification(null, compact('title', 'body'), $target, $targetId);
+        return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey, $extraSelect);
     }
 
     // TODO add to readMe
-    // install package `laravel-notification-channels/fcm`
-    public function localeFcmNotification(string $locale, string $localeBody, string $target = null, string $targetId = null)
+    // php artisan notifications:table && php artisan migrate
+    // install package `laravel-notification-channels/fcm` for NotifyBy::FCM
+    public function localeNotification(string $locale, array $localeBody, string $target = null, string $targetId = null, array|NotifyBy $via = [])
     {
-        return new FcmNotification($locale, $localeBody, $target, $targetId);
+        return new MixedNotification($locale, $localeBody, $target, $targetId, $via);
     }
 
-    public function customFcmNotification(string $title, string $body, string $target = null, string $targetId = null)
+    public function customNotification(string $title, string $body, string $target = null, string $targetId = null, array|NotifyBy $via = [])
     {
-        return new FcmNotification(null, compact('title', 'body'), $target, $targetId);
+        return new MixedNotification(null, compact('title', 'body'), $target, $targetId, $via);
     }
 }

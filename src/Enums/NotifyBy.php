@@ -4,10 +4,11 @@ namespace CodeLink\Booster\Enums;
 
 use CodeLink\Booster\Traits\EnumHandler;
 
-enum OtpGateway: string
+enum NotifyBy: string
 {
     use EnumHandler;
 
-    case SMS = 'sms';
-    case EMAIL = 'email';
+    case DATABASE = 'database';
+    case MAIL = 'mail';
+    case FCM = 'fcm';
 }
