@@ -27,13 +27,13 @@ return [
             'allow' => env('BOOSTER_OTP_ALLOW', false),
 
             # Otp model for storing the verification code.
-            'model' => \CodeLink\Booster\Models\Otp::class,
+            'model' => CodeLink\Booster\Models\Otp::class,
 
             # Mailable for otp mail class.
-            'mailable' => \CodeLink\Booster\Mails\OtpMail::class,
+            'mailable' => CodeLink\Booster\Mails\OtpMail::class,
 
             # Sms service to be used when sending sms by a gateway.
-            'sms_service' => \CodeLink\Booster\Services\Otp\SmsService::class,
+            'sms_service' => CodeLink\Booster\Services\Otp\SmsService::class,
 
             # Mailable markdown for email html template.
             'mailable_markdown' => 'booster::otp',
@@ -100,7 +100,11 @@ return [
 
     'notifications' => [
 
-        'via' => \CodeLink\Booster\Enums\NotifyBy::values(),
+        'via' => [
+            CodeLink\Booster\Enums\NotifyBy::DATABASE->value,
+            CodeLink\Booster\Enums\NotifyBy::MAIL->value,
+            CodeLink\Booster\Enums\NotifyBy::FCM->value,
+        ],
 
         'fcm_channel' => NULL, // \NotificationChannels\Fcm\FcmChannel::class,
 
