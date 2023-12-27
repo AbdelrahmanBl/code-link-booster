@@ -102,4 +102,14 @@ class BoosterHelper
     {
         return ChartBuilder::sum($builder, $relationName, $sumKey, $labelKey, 'asc');
     }
+
+    public function generateEnumReportDesc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
+    {
+        return ChartBuilder::enum($builder, $cases, $labelKey, 'desc', $locale);
+    }
+
+    public function generateEnumReportAsc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
+    {
+        return ChartBuilder::enum($builder, $cases, $labelKey, 'asc', $locale);
+    }
 }

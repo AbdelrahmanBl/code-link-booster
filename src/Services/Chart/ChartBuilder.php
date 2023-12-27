@@ -11,7 +11,7 @@ class ChartBuilder
      * generate monthly report.
      *
      * @param  Builder $builder
-     * @param  string $dateField
+     * @param  string|null $dateField
      * @param  bool $fromNow
      * @return array
      */
@@ -28,7 +28,7 @@ class ChartBuilder
         $startFrom = $startFrom->firstOfMonth();
         $endAt = $endAt->endOfMonth();
 
-        if(! $dateField) {
+        if(empty($dateField)) {
             $dateField = config('booster.services.chart_service.monthly_date_field');
         }
 
@@ -64,7 +64,7 @@ class ChartBuilder
      *
      * @param  Builder $builder
      * @param  string $relationName
-     * @param  string $labelKey
+     * @param  string|null $labelKey
      * @param  string $orderBy
      * @return array
      */
@@ -72,7 +72,7 @@ class ChartBuilder
     {
         $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_count';
 
-        if(! $labelKey) {
+        if(empty($labelKey)) {
             $labelKey = config('booster.services.chart_service.label_key');
         }
 
@@ -98,7 +98,7 @@ class ChartBuilder
      * @param  Builder $builder
      * @param  string $relationName
      * @param  string $sumKey
-     * @param  string $labelKey
+     * @param  string|null $labelKey
      * @param  string $orderBy
      * @return array
      */
@@ -106,7 +106,7 @@ class ChartBuilder
     {
         $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_sum_' . str_replace('.', '', $sumKey);
 
-        if(! $labelKey) {
+        if(empty($labelKey)) {
             $labelKey = config('booster.services.chart_service.label_key');
         }
 
@@ -124,5 +124,49 @@ class ChartBuilder
         }
 
         return $chart->data;
+    }
+
+    /**
+     * generate report with enum.
+     *
+     * @param  Builder $builder
+     * @param  array $cases
+     * @param  string|null $labelKey
+     * @param  string $orderBy
+     * @param  string|null $locale
+     * @return array
+     */
+    public static function enum($builder, $cases, $labelKey = null, $orderBy = 'desc', string $locale = null): array
+    {
+        $selectBoxValueKey = config('booster.transformers.select_box.value_key');
+
+        if(empty($labelKey)) {
+            $labelKey = config('booster.services.chart_service.label_key');
+        }
+
+        if(empty($locale)) {
+            $locale = 'enums.' . class_basename($cases[0]);
+        }
+
+        $data = $builder->select($labelKey, DB::raw("COUNT($labelKey) as count"))
+        ->groupBy($labelKey)
+        ->get();
+
+        $chart = new Chart();
+        $enumTranslateKey = class_basename($cases[0]);
+
+        foreach($cases as $case) {
+            $chart->add(
+                __("$locale.$enumTranslateKey.{$case->value}"),
+                $data->where($labelKey, $case)->first()?->count ?? 0
+            );
+        }
+
+        $chartCollection = match($orderBy) {
+            'desc' => collect($chart->data)->sortByDesc(fn($i) => $i[$selectBoxValueKey]),
+            'asc' => collect($chart->data)->sortBy(fn($i) => $i[$selectBoxValueKey]),
+        };
+
+        return $chartCollection->values()->toArray();
     }
 }
