@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Facade;
  * @method static \CodeLink\Booster\Services\Chart\ChartGenerator report()
  * @method static array generateMonthlyReportAfterNow(Builder $builder, string $dateField = null)
  * @method static array generateMonthlyReportBeforeNow(Builder $builder, string $dateField = null)
- * @method static array generateCountReportDesc(Builder $builder, string $relationName, string $labelKey = null)
- * @method static array generateCountReportAsc(Builder $builder, string $relationName, string $labelKey = null)
- * @method static array generateSumReportDesc(Builder $builder, string $relationName, string $sumKey, string $labelKey = null)
- * @method static array generateSumReportAsc(Builder $builder, string $relationName, string $sumKey, string $labelKey = null)
+ * @method static array generateCountReportDesc(Builder $builder, string|array $relation, string|callable $labelKey = null, array $extraSelect = []): array
+ * @method static array generateCountReportAsc(Builder $builder, string|array $relation, string|callable $labelKey = null, array $extraSelect = []): array
+ * @method static array generateSumReportDesc(Builder $builder, string|array $relation, string $sumKey, string|callable $labelKey = null, array $extraSelect = [])
+ * @method static array generateSumReportAsc(Builder $builder, string|array $relation, string $sumKey, string|callable $labelKey = null, array $extraSelect = [])
  * @method static array generateEnumReportDesc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
  * @method static array generateEnumReportAsc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
  */

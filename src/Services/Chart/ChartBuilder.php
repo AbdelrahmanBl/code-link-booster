@@ -63,21 +63,35 @@ class ChartBuilder
      * generate report with count.
      *
      * @param  Builder $builder
-     * @param  string $relationName
-     * @param  string|null $labelKey
+     * @param  string|array $relation
+     * @param  callable|string|null $label
      * @param  string $orderBy
+     * @param  array $extraSelect
      * @return array
      */
-    public static function count($builder, $relationName, $labelKey = null, $orderBy = 'desc'): array
+    public static function count(Builder $builder, $relation, $label = null, $orderBy = 'desc', array $extraSelect = []): array
     {
-        $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_count';
-
-        if(empty($labelKey)) {
-            $labelKey = config('booster.services.chart_service.label_key');
+        if(is_string($relation)) {
+            $relation = [$relation, null];
+        }
+        else if(is_array($relation)) {
+            $relation = [array_key_first($relation), array_values($relation)[0]];
         }
 
-        $data = $builder->select([config('booster.services.chart_service.id_key'), $labelKey])
-        ->whereHas("{$relationName}")
+        list($relationName, $relationCallback) = $relation;
+
+        $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_count';
+
+        if(empty($label)) {
+            $label = config('booster.services.chart_service.label_key');
+        }
+
+        $select = empty($extraSelect)
+        ? [config('booster.services.chart_service.id_key'), $label]
+        : $extraSelect;
+
+        $data = $builder->select($select)
+        ->whereHas("{$relationName}", $relationCallback)
         ->withCount("{$relationName}")
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
@@ -86,7 +100,7 @@ class ChartBuilder
         $chart = new Chart();
 
         foreach($data as $item) {
-            $chart->add($item->{$labelKey}, $item->{$relationKey});
+            $chart->add(is_callable($label) ? $label($item) : $item->{$label}, $item->{$relationKey});
         }
 
         return $chart->data;
@@ -96,22 +110,36 @@ class ChartBuilder
      * generate report with sum.
      *
      * @param  Builder $builder
-     * @param  string $relationName
+     * @param  string|array $relation
      * @param  string $sumKey
-     * @param  string|null $labelKey
+     * @param  string|null $label
      * @param  string $orderBy
+     * @param  array $extraSelect
      * @return array
      */
-    public static function sum($builder, $relationName, $sumKey, $labelKey = null, $orderBy = 'desc'): array
+    public static function sum($builder, $relation, $sumKey, $label = null, $orderBy = 'desc', array $extraSelect = []): array
     {
-        $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_sum_' . str_replace('.', '', $sumKey);
-
-        if(empty($labelKey)) {
-            $labelKey = config('booster.services.chart_service.label_key');
+        if(is_string($relation)) {
+            $relation = [$relation, null];
+        }
+        else if(is_array($relation)) {
+            $relation = [array_key_first($relation), array_values($relation)[0]];
         }
 
-        $data = $builder->select([config('booster.services.chart_service.id_key'), $labelKey])
-        ->whereHas("{$relationName}")
+        list($relationName, $relationCallback) = $relation;
+
+        $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_sum_' . str_replace('.', '', $sumKey);
+
+        if(empty($label)) {
+            $label = config('booster.services.chart_service.label_key');
+        }
+
+        $select = empty($extraSelect)
+        ? [config('booster.services.chart_service.id_key'), $label]
+        : $extraSelect;
+
+        $data = $builder->select($select)
+        ->whereHas("{$relationName}", $relationCallback)
         ->withSum("{$relationName}", $sumKey)
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
@@ -120,7 +148,7 @@ class ChartBuilder
         $chart = new Chart();
 
         foreach($data as $item) {
-            $chart->add($item->{$labelKey}, $item->{$relationKey});
+            $chart->add(is_callable($label) ? $label($item) : $item->{$label}, $item->{$relationKey});
         }
 
         return $chart->data;
@@ -153,11 +181,10 @@ class ChartBuilder
         ->get();
 
         $chart = new Chart();
-        $enumTranslateKey = class_basename($cases[0]);
 
         foreach($cases as $case) {
             $chart->add(
-                __("$locale.$enumTranslateKey.{$case->value}"),
+                __("$locale.{$case->value}"),
                 $data->where($labelKey, $case)->first()?->count ?? 0
             );
         }
