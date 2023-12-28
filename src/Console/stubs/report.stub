@@ -3,10 +3,11 @@
 namespace {{ namespace }};
 
 use CodeLink\Booster\Facades\Booster;
+use Illuminate\Database\Eloquent\Builder;
 
 class {{ class }}
 {
-    public static function generate(): array
+    public static function generate(Builder $queryBuilder): array
     {
         return Booster::report()
         ->addStatistic('title', 'value')
