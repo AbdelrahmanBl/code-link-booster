@@ -12,6 +12,7 @@ use CodeLink\Booster\Services\Chart\ChartGenerator;
 use CodeLink\Booster\Notifications\MixedNotification;
 use CodeLink\Booster\Transformers\CaseSelectBoxTransformer;
 use CodeLink\Booster\Transformers\TableSelectBoxTransformer;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class BoosterHelper
 {
@@ -111,5 +112,68 @@ class BoosterHelper
     public function generateEnumReportAsc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
     {
         return ChartBuilder::enum($builder, $cases, $labelKey, 'asc', $locale);
+    }
+
+    /**
+     * detect excel export from the request.
+     *
+     * @return bool
+     */
+    public function detectExcelExport(): bool
+    {
+        return request(config('booster.requests.export_excel_key')) ?? false;
+    }
+
+    /**
+     * detect show report from the request.
+     *
+     * @return bool
+     */
+    public function detectShowReport(): bool
+    {
+        return request(config('booster.requests.show_report_key')) ?? false;
+    }
+
+    /**
+     * detect download draft from the request.
+     *
+     * @return bool
+     */
+    public function detectDownloadDraft(): bool
+    {
+        return request(config('booster.requests.download_draft_key')) ?? false;
+    }
+
+    /**
+     * handleExport
+     *
+     * @param  Builder $queryBuilder
+     * @param  array $fields
+     * @param  ?string $exportFileName
+     * @param  array $thead
+     * @return BinaryFileResponse
+     */
+    public function handleExcelExport($queryBuilder, $fields, $exportFileName = NULL): BinaryFileResponse
+    {
+        // generate file name...
+        $fileName = $exportFileName ?? class_basename($queryBuilder->getModel()) . 's_' . today()->format('Y-m-d');
+        // add excel extension...
+        $fileName .= '.xlsx';
+
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \CodeLink\Booster\Exports\ExcelExport($queryBuilder->get(), $fields, []), $fileName
+        );
+    }
+
+    public function handleExcelExportWithCustomHeaders($queryBuilder, $fields, $headers = [], $exportFileName = NULL): BinaryFileResponse
+    {
+        // generate file name...
+        $fileName = $exportFileName ?? class_basename($queryBuilder->getModel()) . 's_' . today()->format('Y-m-d');
+        // add excel extension...
+        $fileName .= '.xlsx';
+
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \CodeLink\Booster\Exports\ExcelExport($queryBuilder->get(), $fields, $headers), $fileName
+        );
     }
 }

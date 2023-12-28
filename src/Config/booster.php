@@ -110,5 +110,13 @@ return [
 
         'fcm_channel' => NULL, // \NotificationChannels\Fcm\FcmChannel::class,
 
+    ],
+
+    'requests' => [
+        'export_excel_key' => 'export_excel',
+
+        'show_report_key' => 'show_report',
+
+        'download_draft_key' => 'download_draft',
     ]
 ];

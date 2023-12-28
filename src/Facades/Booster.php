@@ -5,7 +5,7 @@ namespace CodeLink\Booster\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static public function ping(): void
+ * @method static void ping()
  * @method static bool sendOtpByEmail(string $email, int $otpLength = null)
  * @method static bool sendOtpBySms(string $mobile, int $otpLength = null)
  * @method static bool verifyOtp(string $target, string $otp)
@@ -24,6 +24,11 @@ use Illuminate\Support\Facades\Facade;
  * @method static array generateSumReportAsc(Builder $builder, string|array $relation, string $sumKey, string|callable $labelKey = null, array $extraSelect = [])
  * @method static array generateEnumReportDesc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
  * @method static array generateEnumReportAsc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
+ * @method static bool detectExcelExport()
+ * @method static bool detectShowReport()
+ * @method static bool detectDownloadDraft()
+ * @method static \Symfony\Component\HttpFoundation\BinaryFileResponse handleExcelExport($queryBuilder, $fields, $exportFileName = NULL)
+ * @method static \Symfony\Component\HttpFoundation\BinaryFileResponse handleExcelExportWithCustomHeaders($queryBuilder, $fields, $headers = [], $exportFileName = NULL)
  */
 class Booster extends Facade
 {
