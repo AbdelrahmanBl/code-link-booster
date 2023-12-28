@@ -17,4 +17,13 @@ class ArrayMixin
             : $item;
         }, $array);
     }
+
+    public function withoutNullable()
+    {
+        return function($array) {
+            return is_array($array)
+            ? array_filter($array, fn($i) => ! is_null($i))
+            : $array;
+        };
+    }
 }
