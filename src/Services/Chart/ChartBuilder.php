@@ -166,8 +166,6 @@ class ChartBuilder
      */
     public static function enum($builder, $cases, $labelKey = null, $orderBy = 'desc', string $locale = null): array
     {
-        $selectBoxValueKey = config('booster.transformers.select_box.value_key');
-
         if(empty($labelKey)) {
             $labelKey = config('booster.services.chart_service.label_key');
         }
@@ -190,8 +188,8 @@ class ChartBuilder
         }
 
         $chartCollection = match($orderBy) {
-            'desc' => collect($chart->data)->sortByDesc(fn($i) => $i[$selectBoxValueKey]),
-            'asc' => collect($chart->data)->sortBy(fn($i) => $i[$selectBoxValueKey]),
+            'desc' => collect($chart->data)->sortByDesc(fn($i) => $i['value']),
+            'asc' => collect($chart->data)->sortBy(fn($i) => $i['value']),
         };
 
         return $chartCollection->values()->toArray();
