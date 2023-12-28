@@ -6,7 +6,7 @@ use CodeLink\Booster\Facades\Booster;
 
 class {{ class }}
 {
-    public static function get()
+    public static function generate(): array
     {
         return Booster::report()
         ->addStatistic('title', 'value')
