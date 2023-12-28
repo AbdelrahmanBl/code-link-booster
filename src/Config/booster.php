@@ -118,5 +118,5 @@ return [
         'show_report_key' => 'show_report',
 
         'download_draft_key' => 'download_draft',
-    ]
+    ],
 ];
