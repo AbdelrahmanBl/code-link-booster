@@ -2,6 +2,7 @@
 
 namespace CodeLink\Booster\Services\Chart;
 
+use CodeLink\Booster\Arrays\DummyColors;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
@@ -43,6 +44,8 @@ class ChartBuilder
         ->get();
 
         $chart = new Chart();
+        $colors = DummyColors::toArray();
+        $index = 0;
 
         while($startFrom < $endAt) {
 
@@ -50,7 +53,7 @@ class ChartBuilder
 
             $item  = $data->where('month', $month)->first();
 
-            $chart->add(trans("booster::message.months.$month"), $item?->count ?? 0);
+            $chart->add(trans("booster::message.months.$month"), $item?->count ?? 0, $colors[$index++]);
 
             $startFrom->addMonth();
 
@@ -91,16 +94,21 @@ class ChartBuilder
         : $extraSelect;
 
         $data = $builder->select($select)
-        ->whereHas("{$relationName}", $relationCallback)
+        ->whereHas("{$relationName}", $relationCallback, '>=', 0)
         ->withCount("{$relationName}")
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
         ->get();
 
         $chart = new Chart();
+        $colors = DummyColors::toArray();
 
-        foreach($data as $item) {
-            $chart->add(is_callable($label) ? $label($item) : $item->{$label}, $item->{$relationKey});
+        foreach($data as $index => $item) {
+            $chart->add(
+                is_callable($label) ? $label($item) : $item->{$label},
+                $item->{$relationKey},
+                $colors[$index]
+            );
         }
 
         return $chart->data;
@@ -139,16 +147,21 @@ class ChartBuilder
         : $extraSelect;
 
         $data = $builder->select($select)
-        ->whereHas("{$relationName}", $relationCallback)
+        ->whereHas("{$relationName}", $relationCallback, '>=', 0)
         ->withSum("{$relationName}", $sumKey)
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
         ->get();
 
         $chart = new Chart();
+        $colors = DummyColors::toArray();
 
-        foreach($data as $item) {
-            $chart->add(is_callable($label) ? $label($item) : $item->{$label}, $item->{$relationKey});
+        foreach($data as $index => $item) {
+            $chart->add(
+                is_callable($label) ? $label($item) : $item->{$label},
+                $item->{$relationKey},
+                $colors[$index]
+            );
         }
 
         return $chart->data;
@@ -179,11 +192,13 @@ class ChartBuilder
         ->get();
 
         $chart = new Chart();
+        $colors = DummyColors::toArray();
 
-        foreach($cases as $case) {
+        foreach($cases as $index => $case) {
             $chart->add(
                 __("$locale.{$case->value}"),
-                $data->where($labelKey, $case)->first()?->count ?? 0
+                $data->where($labelKey, $case)->first()?->count ?? 0,
+                $colors[$index]
             );
         }
 
