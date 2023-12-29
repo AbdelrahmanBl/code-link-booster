@@ -84,24 +84,24 @@ class BoosterHelper
         return ChartBuilder::monthly($builder, $dateField, false);
     }
 
-    public function generateCountReportDesc(Builder $builder, string|array $relation, string|callable $labelKey = null, array $extraSelect = []): array
+    public function generateCountReportDesc(Builder $builder, string|array $relation, string|callable $label = null, array $extraSelect = []): array
     {
-        return ChartBuilder::count($builder, $relation, $labelKey, 'desc', $extraSelect);
+        return ChartBuilder::count($builder, $relation, $label, 'desc', $extraSelect);
     }
 
-    public function generateCountReportAsc(Builder $builder, string|array $relation, string|callable $labelKey = null, array $extraSelect = []): array
+    public function generateCountReportAsc(Builder $builder, string|array $relation, string|callable $label = null, array $extraSelect = []): array
     {
-        return ChartBuilder::count($builder, $relation, $labelKey, 'asc', $extraSelect);
+        return ChartBuilder::count($builder, $relation, $label, 'asc', $extraSelect);
     }
 
-    public function generateSumReportDesc(Builder $builder, string|array $relation, string $sumKey, string|callable $labelKey = null, array $extraSelect = []): array
+    public function generateSumReportDesc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = []): array
     {
-        return ChartBuilder::sum($builder, $relation, $sumKey, $labelKey, 'desc', $extraSelect);
+        return ChartBuilder::sum($builder, $relation, $sumKey, $label, 'desc', $extraSelect);
     }
 
-    public function generateSumReportAsc(Builder $builder, string|array $relation, string $sumKey, string|callable $labelKey = null, array $extraSelect = []): array
+    public function generateSumReportAsc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = []): array
     {
-        return ChartBuilder::sum($builder, $relation, $sumKey, $labelKey, 'asc', $extraSelect);
+        return ChartBuilder::sum($builder, $relation, $sumKey, $label, 'asc', $extraSelect);
     }
 
     public function generateEnumReportDesc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array

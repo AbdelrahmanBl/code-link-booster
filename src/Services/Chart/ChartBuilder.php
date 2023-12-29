@@ -120,7 +120,7 @@ class ChartBuilder
      * @param  Builder $builder
      * @param  string|array $relation
      * @param  string $sumKey
-     * @param  string|null $label
+     * @param  callable|string|null $label
      * @param  string $orderBy
      * @param  array $extraSelect
      * @return array
