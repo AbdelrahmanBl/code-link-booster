@@ -2,6 +2,7 @@
 
 namespace CodeLink\Booster\Helpers;
 
+use Illuminate\Support\Str;
 use CodeLink\Booster\Enums\NotifyBy;
 use Illuminate\Database\Eloquent\Builder;
 use CodeLink\Booster\Services\Chart\Chart;
@@ -10,9 +11,9 @@ use CodeLink\Booster\Services\Otp\VerifyOtp;
 use CodeLink\Booster\Services\Chart\ChartBuilder;
 use CodeLink\Booster\Services\Chart\ChartGenerator;
 use CodeLink\Booster\Notifications\MixedNotification;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use CodeLink\Booster\Transformers\CaseSelectBoxTransformer;
 use CodeLink\Booster\Transformers\TableSelectBoxTransformer;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class BoosterHelper
 {
@@ -156,7 +157,7 @@ class BoosterHelper
     public function handleExcelExport($queryBuilder, $fields, $exportFileName = NULL): BinaryFileResponse
     {
         // generate file name...
-        $fileName = $exportFileName ?? class_basename($queryBuilder->getModel()) . 's_' . today()->format('Y-m-d');
+        $fileName = ($exportFileName ?? Str::plural(class_basename($queryBuilder->getModel()))) . '_' . today()->format('Y-m-d');
         // add excel extension...
         $fileName .= '.xlsx';
 
@@ -168,7 +169,7 @@ class BoosterHelper
     public function handleExcelExportWithCustomHeaders($queryBuilder, $fields, $headers = [], $exportFileName = NULL): BinaryFileResponse
     {
         // generate file name...
-        $fileName = $exportFileName ?? class_basename($queryBuilder->getModel()) . 's_' . today()->format('Y-m-d');
+        $fileName = ($exportFileName ?? Str::plural(class_basename($queryBuilder->getModel()))) . '_' . today()->format('Y-m-d');
         // add excel extension...
         $fileName .= '.xlsx';
 
