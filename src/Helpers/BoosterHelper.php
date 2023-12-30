@@ -11,6 +11,7 @@ use CodeLink\Booster\Services\Otp\VerifyOtp;
 use CodeLink\Booster\Services\Chart\ChartBuilder;
 use CodeLink\Booster\Services\Chart\ChartGenerator;
 use CodeLink\Booster\Notifications\MixedNotification;
+use CodeLink\Booster\Services\Chart\FullWidthChart;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use CodeLink\Booster\Transformers\CaseSelectBoxTransformer;
 use CodeLink\Booster\Transformers\TableSelectBoxTransformer;
@@ -68,6 +69,11 @@ class BoosterHelper
     public function chart(string $title = '', $data = []): Chart
     {
         return new Chart($title, $data);
+    }
+
+    public function fullWidthChart(string $title = '', $data = []): FullWidthChart
+    {
+        return new FullWidthChart($title, $data);
     }
 
     public function report(): ChartGenerator

@@ -42,21 +42,21 @@ class ChartGenerator
         return $this;
     }
 
-    public function addPieChart(Chart $chart): self
+    public function addPieChart(Chart|FullWidthChart $chart): self
     {
         $this->pieCharts[] = $this->getChartBody($chart);
 
         return $this;
     }
 
-    public function addBarChart(Chart $chart): self
+    public function addBarChart(Chart|FullWidthChart $chart): self
     {
         $this->barCharts[] = $this->getChartBody($chart);
 
         return $this;
     }
 
-    public function addLineChart(Chart $chart): self
+    public function addLineChart(Chart|FullWidthChart $chart): self
     {
         $this->lineCharts[] = $this->getChartBody($chart);
 
@@ -73,11 +73,12 @@ class ChartGenerator
         ];
     }
 
-    private function getChartBody(Chart $chart): array
+    private function getChartBody(Chart|FullWidthChart $chart): array
     {
         return [
             'title' => $chart->title,
             'chartData' => $chart->data,
+            'fullWidth' => $chart->fullWidth,
         ];
     }
 }

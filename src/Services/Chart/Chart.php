@@ -8,6 +8,8 @@ class Chart
 
     public array $data;
 
+    public bool $fullWidth = false;
+
     public function __construct(string $title = '', $data = [])
     {
         $this->title = $title;
