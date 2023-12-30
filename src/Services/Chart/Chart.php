@@ -8,12 +8,13 @@ class Chart
 
     public array $data;
 
-    public bool $fullWidth = false;
+    public bool $fullWidth;
 
-    public function __construct(string $title = '', $data = [])
+    public function __construct(string $title = '', $data = [], bool $fullWidth = false)
     {
         $this->title = $title;
         $this->data = $data;
+        $this->fullWidth = $fullWidth;
     }
 
     public function add(string $label, $value, $color = null): self

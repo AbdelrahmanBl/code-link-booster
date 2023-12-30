@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \CodeLink\Booster\Notifications\MixedNotification localeNotification(string $locale, array $localeBody, string $target = null, string $targetId = null, array|NotifyBy $via = [])
  * @method static \CodeLink\Booster\Notifications\MixedNotification customNotification(string $title, string $body, string $target = null, string $targetId = null, array|NotifyBy $via = [])
  * @method static \CodeLink\Booster\Services\Chart\Chart chart(string $title = '', $data = [])
- * @method static \CodeLink\Booster\Services\Chart\FullWidthChart fullWidthChart(string $title = '', $data = [])
+ * @method static \CodeLink\Booster\Services\Chart\Chart fullWidthChart(string $title = '', $data = [])
  * @method static \CodeLink\Booster\Services\Chart\ChartGenerator report()
  * @method static array generateMonthlyReportAfterNow(Builder $builder, string $dateField = null)
  * @method static array generateMonthlyReportBeforeNow(Builder $builder, string $dateField = null)

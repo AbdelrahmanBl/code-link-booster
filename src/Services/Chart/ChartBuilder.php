@@ -74,14 +74,7 @@ class ChartBuilder
      */
     public static function count(Builder $builder, $relation, $label = null, $orderBy = 'desc', array $extraSelect = []): array
     {
-        if(is_string($relation)) {
-            $relation = [$relation, null];
-        }
-        else if(is_array($relation)) {
-            $relation = [array_key_first($relation), array_values($relation)[0]];
-        }
-
-        list($relationName, $relationCallback) = $relation;
+        $relationName = is_array($relation) ? array_key_first($relation) : $relation;
 
         $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_count';
 
@@ -94,10 +87,7 @@ class ChartBuilder
         : $extraSelect;
 
         $data = $builder->select($select)
-        ->when($relationCallback, function($query, $relationCallback) use ($relationName) {
-            $query->whereHas("{$relationName}", $relationCallback, '>=', 0);
-        })
-        ->withCount("{$relationName}")
+        ->withCount($relation)
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
         ->get();
@@ -127,16 +117,9 @@ class ChartBuilder
      * @param  array $extraSelect
      * @return array
      */
-    public static function sum($builder, $relation, $sumKey, $label = null, $orderBy = 'desc', array $extraSelect = []): array
+    public static function sum(Builder $builder, $relation, $sumKey, $label = null, $orderBy = 'desc', array $extraSelect = []): array
     {
-        if(is_string($relation)) {
-            $relation = [$relation, null];
-        }
-        else if(is_array($relation)) {
-            $relation = [array_key_first($relation), array_values($relation)[0]];
-        }
-
-        list($relationName, $relationCallback) = $relation;
+        $relationName = is_array($relation) ? array_key_first($relation) : $relation;
 
         $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_sum_' . str_replace('.', '', $sumKey);
 
@@ -149,10 +132,7 @@ class ChartBuilder
         : $extraSelect;
 
         $data = $builder->select($select)
-        ->when($relationCallback, function($query, $relationCallback) use ($relationName) {
-            $query->whereHas("{$relationName}", $relationCallback, '>=', 0);
-        })
-        ->withSum("{$relationName}", $sumKey)
+        ->withSum($relation, $sumKey)
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
         ->get();
@@ -182,16 +162,9 @@ class ChartBuilder
      * @param  array $extraSelect
      * @return array
      */
-    public static function avg($builder, $relation, $avgKey, $label = null, $orderBy = 'desc', array $extraSelect = []): array
+    public static function avg(Builder $builder, $relation, $avgKey, $label = null, $orderBy = 'desc', array $extraSelect = []): array
     {
-        if(is_string($relation)) {
-            $relation = [$relation, null];
-        }
-        else if(is_array($relation)) {
-            $relation = [array_key_first($relation), array_values($relation)[0]];
-        }
-
-        list($relationName, $relationCallback) = $relation;
+        $relationName = is_array($relation) ? array_key_first($relation) : $relation;
 
         $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_avg_' . str_replace('.', '', $avgKey);
 
@@ -204,10 +177,7 @@ class ChartBuilder
         : $extraSelect;
 
         $data = $builder->select($select)
-        ->when($relationCallback, function($query, $relationCallback) use ($relationName) {
-            $query->whereHas("{$relationName}", $relationCallback, '>=', 0);
-        })
-        ->withAvg("{$relationName}", $avgKey)
+        ->withAvg($relation, $avgKey)
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
         ->get();
