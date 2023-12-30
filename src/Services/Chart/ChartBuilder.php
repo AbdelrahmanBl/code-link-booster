@@ -94,7 +94,9 @@ class ChartBuilder
         : $extraSelect;
 
         $data = $builder->select($select)
-        ->whereHas("{$relationName}", $relationCallback, '>=', 0)
+        ->when($relationCallback, function($query, $relationCallback) use ($relationName) {
+            $query->whereHas("{$relationName}", $relationCallback, '>=', 0);
+        })
         ->withCount("{$relationName}")
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
@@ -147,7 +149,9 @@ class ChartBuilder
         : $extraSelect;
 
         $data = $builder->select($select)
-        ->whereHas("{$relationName}", $relationCallback, '>=', 0)
+        ->when($relationCallback, function($query, $relationCallback) use ($relationName) {
+            $query->whereHas("{$relationName}", $relationCallback, '>=', 0);
+        })
         ->withSum("{$relationName}", $sumKey)
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
@@ -200,7 +204,9 @@ class ChartBuilder
         : $extraSelect;
 
         $data = $builder->select($select)
-        ->whereHas("{$relationName}", $relationCallback, '>=', 0)
+        ->when($relationCallback, function($query, $relationCallback) use ($relationName) {
+            $query->whereHas("{$relationName}", $relationCallback, '>=', 0);
+        })
         ->withAvg("{$relationName}", $avgKey)
         ->orderBy($relationKey, $orderBy)
         ->limit(config('booster.services.chart_service.top_rated_length'))
