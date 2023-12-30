@@ -13,7 +13,6 @@ class {{ class }}
         ->addStatistic('title', 'value')
         ->addPieChart(Booster::chart())
         ->addBarChart(Booster::chart())
-        ->addLineChart(Booster::chart())
         ->generate();
     }
 }
