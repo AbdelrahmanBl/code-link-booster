@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static array generateCountReportAsc(Builder $builder, string|array $relation, string|callable $label = null, array $extraSelect = []): array
  * @method static array generateSumReportDesc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = [])
  * @method static array generateSumReportAsc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = [])
+ * @method static array generateAvgReportDesc(Builder $builder, string|array $relation, string $avgKey, string|callable $label = null, array $extraSelect = [])
+ * @method static array generateAvgReportAsc(Builder $builder, string|array $relation, string $avgKey, string|callable $label = null, array $extraSelect = [])
  * @method static array generateEnumReportDesc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
  * @method static array generateEnumReportAsc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
  * @method static bool detectExcelExport()

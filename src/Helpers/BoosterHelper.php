@@ -111,6 +111,16 @@ class BoosterHelper
         return ChartBuilder::sum($builder, $relation, $sumKey, $label, 'asc', $extraSelect);
     }
 
+    public function generateAvgReportDesc(Builder $builder, string|array $relation, string $avgKey, string|callable $label = null, array $extraSelect = []): array
+    {
+        return ChartBuilder::avg($builder, $relation, $avgKey, $label, 'desc', $extraSelect);
+    }
+
+    public function generateAvgReportAsc(Builder $builder, string|array $relation, string $avgKey, string|callable $label = null, array $extraSelect = []): array
+    {
+        return ChartBuilder::avg($builder, $relation, $avgKey, $label, 'asc', $extraSelect);
+    }
+
     public function generateEnumReportDesc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
     {
         return ChartBuilder::enum($builder, $cases, $labelKey, 'desc', $locale);

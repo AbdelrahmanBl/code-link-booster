@@ -168,6 +168,59 @@ class ChartBuilder
     }
 
     /**
+     * generate report with average.
+     *
+     * @param  Builder $builder
+     * @param  string|array $relation
+     * @param  string $avgKey
+     * @param  callable|string|null $label
+     * @param  string $orderBy
+     * @param  array $extraSelect
+     * @return array
+     */
+    public static function avg($builder, $relation, $avgKey, $label = null, $orderBy = 'desc', array $extraSelect = []): array
+    {
+        if(is_string($relation)) {
+            $relation = [$relation, null];
+        }
+        else if(is_array($relation)) {
+            $relation = [array_key_first($relation), array_values($relation)[0]];
+        }
+
+        list($relationName, $relationCallback) = $relation;
+
+        $relationKey = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $relationName)) . '_avg_' . str_replace('.', '', $avgKey);
+
+        if(empty($label)) {
+            $label = config('booster.services.chart_service.label_key');
+        }
+
+        $select = empty($extraSelect)
+        ? [config('booster.services.chart_service.id_key'), $label]
+        : $extraSelect;
+
+        $data = $builder->select($select)
+        ->whereHas("{$relationName}", $relationCallback, '>=', 0)
+        ->withAvg("{$relationName}", $avgKey)
+        ->orderBy($relationKey, $orderBy)
+        ->limit(config('booster.services.chart_service.top_rated_length'))
+        ->get();
+
+        $chart = new Chart();
+        $colors = DummyColors::toArray();
+
+        foreach($data as $index => $item) {
+            $chart->add(
+                is_callable($label) ? $label($item) : $item->{$label},
+                round($item->{$relationKey}, 1),
+                $colors[$index]
+            );
+        }
+
+        return $chart->data;
+    }
+
+    /**
      * generate report with enum.
      *
      * @param  Builder $builder
