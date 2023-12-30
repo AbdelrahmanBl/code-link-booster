@@ -20,4 +20,22 @@ class StringMixin
             return $otp;
         };
     }
+
+    public function urlParser()
+    {
+        return function(string $url) {
+            $parsedData = [];
+
+            $params = explode('&', parse_url($url, PHP_URL_QUERY));
+
+            foreach ($params as $queryParam) {
+                if($queryParam) {
+                    $queryParamItem = explode('=', $queryParam);
+                    $parsedData[$queryParamItem[0]] = $queryParamItem[1];
+                }
+            }
+
+            return $parsedData;
+        };
+    }
 }

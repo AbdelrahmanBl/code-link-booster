@@ -2,6 +2,9 @@
 
 namespace CodeLink\Booster\Services\Chart;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+
 class ChartGenerator
 {
     public array $statistics = [];
@@ -14,6 +17,22 @@ class ChartGenerator
 
     public function addStatistic(string $title, $value,?string $route= null): self
     {
+        if($route) {
+            // get all query parameters without show report key...
+            $queryParams = collect(request()->query())
+            ->filter(fn($i, $key) => $key !== config('booster.requests.show_report_key'))
+            ->toArray();
+
+            // overwrite origin query parameters with the route params...
+            $queryParams = array_merge(Str::urlParser($route), Arr::withoutNullable($queryParams));
+
+            // remove query parameters from the route...
+            $route = strtok($route, '?');
+
+            $route = $route . '?' . http_build_query($queryParams);
+        }
+
+
         $this->statistics[] = [
             'label' => $title,
             'value' => $value,
