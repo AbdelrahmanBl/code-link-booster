@@ -34,7 +34,7 @@ class BoosterHelper
 
     public function verifyOtp(string $target, string $otp): bool
     {
-        return VerifyOtp::create()->verify($target, $otp);
+        return VerifyOtp::verify($target, $otp);
     }
 
     public function getSelectBoxEnumOptions(array $cases, string $locale = NULL): array
