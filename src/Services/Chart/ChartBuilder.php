@@ -2,9 +2,8 @@
 
 namespace CodeLink\Booster\Services\Chart;
 
-use CodeLink\Booster\Arrays\DummyColors;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class ChartBuilder
 {
@@ -44,7 +43,7 @@ class ChartBuilder
         ->get();
 
         $chart = new Chart();
-        $colors = DummyColors::toArray();
+        $colors = config('booster.services.chart_service.dummy_colors')::toArray();
         $index = 0;
 
         while($startFrom < $endAt) {
@@ -93,7 +92,7 @@ class ChartBuilder
         ->get();
 
         $chart = new Chart();
-        $colors = DummyColors::toArray();
+        $colors = config('booster.services.chart_service.dummy_colors')::toArray();
 
         foreach($data as $index => $item) {
             $chart->add(
@@ -138,7 +137,7 @@ class ChartBuilder
         ->get();
 
         $chart = new Chart();
-        $colors = DummyColors::toArray();
+        $colors = config('booster.services.chart_service.dummy_colors')::toArray();
 
         foreach($data as $index => $item) {
             $chart->add(
@@ -183,7 +182,7 @@ class ChartBuilder
         ->get();
 
         $chart = new Chart();
-        $colors = DummyColors::toArray();
+        $colors = config('booster.services.chart_service.dummy_colors')::toArray();
 
         foreach($data as $index => $item) {
             $chart->add(
@@ -221,7 +220,7 @@ class ChartBuilder
         ->get();
 
         $chart = new Chart();
-        $colors = DummyColors::toArray();
+        $colors = config('booster.services.chart_service.dummy_colors')::toArray();
 
         foreach($cases as $index => $case) {
             $chart->add(

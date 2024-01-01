@@ -66,6 +66,9 @@ return [
 
             # The default id key field for chart builder [count - sum] methods.
             'id_key' => 'id',
+
+            # The default dummy colors class.
+            'dummy_colors' => CodeLink\Booster\Arrays\DummyColors::class,
         ],
     ],
 
