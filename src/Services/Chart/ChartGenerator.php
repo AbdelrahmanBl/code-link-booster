@@ -15,7 +15,7 @@ class ChartGenerator
 
     public array $lineCharts = [];
 
-    public function addStatistic(string $title, $value,?string $route= null): self
+    public function addStatistic(string $title, $value,?string $route= null, ?string $icon = null): self
     {
         if($route) {
             // get all query parameters without show report key...
@@ -36,7 +36,8 @@ class ChartGenerator
         $this->statistics[] = [
             'label' => $title,
             'value' => $value,
-            'route' => $route
+            'route' => $route,
+            'icon' => $icon,
         ];
 
         return $this;
