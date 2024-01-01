@@ -39,17 +39,17 @@ class BoosterHelper
 
     public function getSelectBoxEnumOptions(array $cases, string $locale = NULL): array
     {
-        return CaseSelectBoxTransformer::make()->transform($cases, $locale);
+        return CaseSelectBoxTransformer::transform($cases, $locale);
     }
 
     public function getSelectBoxTableOptions(Builder $queryBuilder, string $labelKey = null, string $valueKey = null): array
     {
-        return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey);
+        return TableSelectBoxTransformer::transform($queryBuilder, $labelKey, $valueKey);
     }
 
     public function getSelectBoxTableCastOptions(Builder $queryBuilder, array $extraSelect, string $labelKey = null, string $valueKey = null)
     {
-        return TableSelectBoxTransformer::make()->transform($queryBuilder, $labelKey, $valueKey, $extraSelect);
+        return TableSelectBoxTransformer::transform($queryBuilder, $labelKey, $valueKey, $extraSelect);
     }
 
     // TODO add to readMe

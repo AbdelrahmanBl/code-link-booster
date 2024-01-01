@@ -4,12 +4,7 @@ namespace CodeLink\Booster\Transformers;
 
 class CaseSelectBoxTransformer
 {
-    public static function make(): self
-    {
-        return new self;
-    }
-
-    public function transform(array $cases, string $locale = NULL)
+    public static function transform(array $cases, string $locale = NULL): array
     {
         if(empty($cases)) {
             return [];

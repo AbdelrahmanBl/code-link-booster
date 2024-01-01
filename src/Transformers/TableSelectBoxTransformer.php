@@ -6,12 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class TableSelectBoxTransformer
 {
-    public static function make(): self
-    {
-        return new self;
-    }
-
-    public function transform(Builder $queryBuilder, string $labelKey = null, string $valueKey = null, array $extraSelect = [])
+    public static function transform(Builder $queryBuilder, string $labelKey = null, string $valueKey = null, array $extraSelect = []): array
     {
         if(empty($labelKey)) {
             $labelKey = config('booster.transformers.select_box_table.label_key');
