@@ -5,8 +5,8 @@ namespace CodeLink\Booster\Services\Otp;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use CodeLink\Booster\Contracts\SmsContract;
 use CodeLink\Booster\Enums\OtpGateway;
+use CodeLink\Booster\Contracts\SmsContract;
 use Illuminate\Contracts\Mail\Mailable as MailableContract;
 
 class SendOtp
