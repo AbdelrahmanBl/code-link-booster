@@ -25,8 +25,17 @@ trait SendMailNotification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        if($this->translation) {
+            $title = __("{$this->translation}.title");
+            $body = __("{$this->translation}.body", Arr::translateValues($this->body));
+        }
+        else {
+            $title = $this->body['title'];
+            $body = $this->body['body'];
+        }
+
         return (new MailMessage)
-                    ->subject(__("{$this->translation}.title"))
-                    ->line(__("{$this->translation}.body", Arr::translateValues($this->body)));
+                    ->subject($title)
+                    ->line($body);
     }
 }

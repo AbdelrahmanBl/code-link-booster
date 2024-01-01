@@ -33,16 +33,23 @@ trait SendFcmNotification
      */
     public function toFcm($notifiable)
     {
+        if($this->translation) {
+            $title = __("{$this->translation}.title");
+            $body = __("{$this->translation}.body", Arr::translateValues($this->body));
+        }
+        else {
+            $title = $this->body['title'];
+            $body = $this->body['body'];
+        }
+
         return FcmMessage::create()
                         ->setData([
                             'target' => $this->target,
                             'id' => $this->targetId,
                         ])
                         ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                                ->setTitle(__("{$this->translation}.title"))
-                                ->setBody(
-                                    __("{$this->translation}.body", Arr::translateValues($this->body))
-                                )
+                                ->setTitle($title)
+                                ->setBody($body)
                                 ->setImage(''))
                         ->setAndroid(
                             AndroidConfig::create()
