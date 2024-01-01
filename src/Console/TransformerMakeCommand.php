@@ -5,29 +5,29 @@ namespace CodeLink\Booster\Console;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(name: 'make:array-export')]
-class ArrayExportsMakeCommand extends GeneratorCommand
+#[AsCommand(name: 'make:transformer')]
+class TransformerMakeCommand extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'make:array-export';
+    protected $name = 'make:transformer';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new array export class';
+    protected $description = 'Create a new transformer class';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'ArrayExport';
+    protected $type = 'Transformer';
 
     /**
      * Get the stub file for the generator.
@@ -36,7 +36,7 @@ class ArrayExportsMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return $this->resolveStubPath('/stubs/array-export.stub');
+        return $this->resolveStubPath('/stubs/transformer.stub');
     }
 
     /**
@@ -60,6 +60,6 @@ class ArrayExportsMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\ArrayExports';
+        return $rootNamespace.'\Transformers';
     }
 }

@@ -2,9 +2,10 @@
 
 namespace CodeLink\Booster;
 
-use CodeLink\Booster\Console\ArrayExportsMakeCommand;
+use CodeLink\Booster\Console\ArrayExportMakeCommand;
 use CodeLink\Booster\Console\EnumMakeCommand;
 use CodeLink\Booster\Console\ReportMakeCommand;
+use CodeLink\Booster\Console\TransformerMakeCommand;
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
 use CodeLink\Booster\Mixins\StringMixin;
@@ -59,7 +60,8 @@ class BoosterServiceProvider extends ServiceProvider
         $this->commands([
             ReportMakeCommand::class,
             EnumMakeCommand::class,
-            ArrayExportsMakeCommand::class,
+            ArrayExportMakeCommand::class,
+            TransformerMakeCommand::class,
         ]);
 
     }
