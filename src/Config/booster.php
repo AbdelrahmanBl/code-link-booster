@@ -42,7 +42,7 @@ return [
             'mailable_subject' => env('BOOSTER_OTP_MAILABLE_SUBJECT', 'Otp'),
 
             # The otp timeout for otp code expiry.
-            'otp_timeout' => env('BOOSTER_OTP_TIMEOUT', 10),
+            'otp_timeout' => env('BOOSTER_OTP_TIMEOUT', 10), # in mintues
 
             # The default otp length.
             'otp_length' => env('BOOSTER_OTP_LENGTH', 4),
