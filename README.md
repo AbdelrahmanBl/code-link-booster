@@ -61,19 +61,19 @@ php artisan vendor:publish --tag=booster-stubs
 You can create files by an artisan command.
 ### Reports
 ```
-php artisan make:report ENTER_FILE_NAME
+php artisan make:report FILE_NAME
 ```
 ### Enums
 ```
-php artisan make:enum ENTER_FILE_NAME
+php artisan make:enum FILE_NAME
 ```
 ### Array Exports
 ```
-php artisan make:array-export ENTER_FILE_NAME
+php artisan make:array-export FILE_NAME
 ```
 ### Transformers
 ```
-php artisan make:transformer ENTER_FILE_NAME
+php artisan make:transformer FILE_NAME
 ```
 
 # Documentation
