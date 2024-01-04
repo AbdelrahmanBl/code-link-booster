@@ -57,6 +57,25 @@ php artisan vendor:publish --tag=booster-lang
 php artisan vendor:publish --tag=booster-stubs
 ```
 
+## Commands
+You can create files by an artisan command.
+### Reports
+```
+php artisan make:report ENTER_FILE_NAME
+```
+### Enums
+```
+php artisan make:enum ENTER_FILE_NAME
+```
+### Array Exports
+```
+php artisan make:array-export ENTER_FILE_NAME
+```
+### Transformers
+```
+php artisan make:transformer ENTER_FILE_NAME
+```
+
 # Documentation
 
 ## Otp Verification
