@@ -39,10 +39,23 @@ Booster::ping();
 And you will see the dump message `Welcome in code link booster`.
 
 ## Publishes
-Publishes
-
-## Config
-Config
+The booster has many publish files that you can overwrite them.
+### Config file
+```
+php artisan vendor:publish --tag=booster-config
+```
+### View files
+```
+php artisan vendor:publish --tag=booster-views
+```
+### Translation files
+```
+php artisan vendor:publish --tag=booster-lang
+```
+### Stub files
+```
+php artisan vendor:publish --tag=booster-stubs
+```
 
 # Documentation
 
