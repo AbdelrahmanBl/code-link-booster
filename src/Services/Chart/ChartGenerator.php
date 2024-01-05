@@ -43,9 +43,27 @@ class ChartGenerator
         return $this;
     }
 
+    public function addStatisticWhen(mixed $condition, string $title, $value,?string $route= null, ?string $icon = null): self
+    {
+        if($condition) {
+            $this->addStatistic($title, $value, $route, $icon);
+        }
+
+        return $this;
+    }
+
     public function addPieChart(Chart $chart): self
     {
         $this->pieCharts[] = $this->getChartBody($chart);
+
+        return $this;
+    }
+
+    public function addPieChartWhen(mixed $condition, Chart $chart): self
+    {
+        if($condition) {
+            $this->addPieChart($chart);
+        }
 
         return $this;
     }
@@ -57,9 +75,27 @@ class ChartGenerator
         return $this;
     }
 
+    public function addBarChartWhen(mixed $condition, Chart $chart): self
+    {
+        if($condition) {
+            $this->addBarChart($chart);
+        }
+
+        return $this;
+    }
+
     public function addLineChart(Chart $chart): self
     {
         $this->lineCharts[] = $this->getChartBody($chart);
+
+        return $this;
+    }
+
+    public function addLineChartWhen(mixed $condition, Chart $chart): self
+    {
+        if($condition) {
+            $this->addLineChart($chart);
+        }
 
         return $this;
     }
