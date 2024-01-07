@@ -113,6 +113,8 @@ return [
 
         'fcm_channel' => NULL, // \NotificationChannels\Fcm\FcmChannel::class,
 
+        'fcm_service' => CodeLink\Booster\Services\FcmService::class,
+
     ],
 
     'requests' => [

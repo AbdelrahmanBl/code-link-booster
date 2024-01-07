@@ -2,12 +2,7 @@
 
 namespace CodeLink\Booster\Traits;
 
-use NotificationChannels\Fcm\FcmMessage;
-use NotificationChannels\Fcm\Resources\AndroidConfig;
-use NotificationChannels\Fcm\Resources\AndroidFcmOptions;
-use NotificationChannels\Fcm\Resources\AndroidNotification;
-use NotificationChannels\Fcm\Resources\ApnsConfig;
-use NotificationChannels\Fcm\Resources\ApnsFcmOptions;
+use CodeLink\Booster\Services\FcmService;
 use Illuminate\Support\Arr;
 
 trait SendFcmNotification
@@ -24,6 +19,8 @@ trait SendFcmNotification
     protected $translation = null;
 
     protected $body = [];
+
+    private FcmService $fcmService;
 
     /**
      * Get the mail representation of the notification.
@@ -42,21 +39,10 @@ trait SendFcmNotification
             $body = $this->body['body'];
         }
 
-        return FcmMessage::create()
-                        ->setData([
-                            'target' => $this->target,
-                            'id' => $this->targetId,
-                        ])
-                        ->setNotification(\NotificationChannels\Fcm\Resources\Notification::create()
-                                ->setTitle($title)
-                                ->setBody($body)
-                                ->setImage(''))
-                        ->setAndroid(
-                            AndroidConfig::create()
-                                ->setFcmOptions(AndroidFcmOptions::create()->setAnalyticsLabel('analytics'))
-                                ->setNotification(AndroidNotification::create()->setColor('#0A0A0A'))
-                        )->setApns(
-                            ApnsConfig::create()
-                                ->setFcmOptions(ApnsFcmOptions::create()->setAnalyticsLabel('analytics_ios')));
+        $fcmService = config('booster.notifications.fcm_service');
+
+        $this->fcmService = new $fcmService;
+
+        return $this->fcmService->send($title, $body, $this->target, $this->targetId);
     }
 }
