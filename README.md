@@ -114,5 +114,5 @@ Booster::sendOtpBySms('+966501234567', 4);
 ### Verify Otp
 You can verify otp for `[Sms - Email]` by
 ```
-Booster::verifyOtp('+966501234567', '0000');
+Booster::verifyOtp('test@gmail.com', '0000');
 ```
