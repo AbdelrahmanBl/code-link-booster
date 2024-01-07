@@ -86,7 +86,7 @@ php artisan migrate
 ```
 You can set the timeout of the otp from config `booster.services.otp_service.otp_timeout` (in minutes).
 ### Otp Generator
-Otp configured to be static zeros with the default length `0000` length in develope server and randomly in the live server. 
+Otp configured to be static zeros with the default length `0000` length in the develope server and randomly in the live server. 
 To setup a develope server you can set the APP_ENV to local or modify the develop server url from config `booster.develop_server_url` when your APP_ENV is production.
 To setup live server you can set the APP_ENV to production.
 ### Email Otp
