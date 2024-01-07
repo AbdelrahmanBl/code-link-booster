@@ -80,6 +80,10 @@ php artisan make:transformer FILE_NAME
 
 ## Otp Verification
 You must allow otp from config `booster.services.otp_service.allow` (set to true).
+Then kindly run 
+```
+php artisan migrate
+```
 You can set the timeout of the otp from config `booster.services.otp_service.otp_timeout` (in minutes).
 
 ### Email Otp
