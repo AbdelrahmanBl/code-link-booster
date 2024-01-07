@@ -87,24 +87,24 @@ php artisan migrate
 You can set the timeout of the otp from config `booster.services.otp_service.otp_timeout` (in minutes).
 
 ### Email Otp
-You can sent otp by email with default otp length from config `booster.services.otp_service.otp_length`
+You can send otp by email with default otp length from config `booster.services.otp_service.otp_length`
 You can customize email class `booster.services.otp_service.mailable`.
-You can customize email title class `booster.services.otp_service.mailable_subject`.
+You can customize email title `booster.services.otp_service.mailable_subject`.
 You can publish the markdown from booster-views tag or customize from config `booster.services.otp_service.mailable_markdown`. 
 ```
 Booster::sendOtpByEmail('test@gmail.com');
 ```
-You can sent otp by email with custom otp length = 4
+You can send otp by email with custom otp length = 4
 ```
 Booster::sendOtpByEmail('test@gmail.com', 4);
 ```
 ### Sms Otp
-You can sent otp by sms with default otp length from config `booster.services.otp_service.otp_length`
+You can send otp by sms with default otp length from config `booster.services.otp_service.otp_length`
 You can customize the sms service from config `booster.services.otp_service.sms_service` (must be instance of `CodeLink\Booster\Contracts\SmsContract`).
 ```
 Booster::sendOtpBySms('+966501234567');
 ```
-You can sent otp by sms with custom otp length = 4
+You can send otp by sms with custom otp length = 4
 ```
 Booster::sendOtpBySms('+966501234567', 4);
 ```
