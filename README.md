@@ -85,7 +85,10 @@ Then kindly run
 php artisan migrate
 ```
 You can set the timeout of the otp from config `booster.services.otp_service.otp_timeout` (in minutes).
-
+### Otp Generator
+Otp configured to be static zeros with the default length `0000` length in develope server and randomly in the live server. 
+To setup a develope server you can set the APP_ENV to local or modify the develop server url from config `booster.develop_server_url` when your APP_ENV is production.
+To setup live server you can set the APP_ENV to production.
 ### Email Otp
 You can send otp by email with default otp length from config `booster.services.otp_service.otp_length`
 You can customize email class `booster.services.otp_service.mailable`.
@@ -107,4 +110,9 @@ Booster::sendOtpBySms('+966501234567');
 You can send otp by sms with custom otp length = 4
 ```
 Booster::sendOtpBySms('+966501234567', 4);
+```
+### Verify Otp
+You can verify otp for `[Sms - Email]` by
+```
+Booster::verifyOtp('+966501234567', '0000');
 ```
