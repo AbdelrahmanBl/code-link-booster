@@ -20,13 +20,26 @@ class BuilderMixin
 
     public function whereSearch()
     {
-        return function(string|array $attributes, $search) {
-            return $this->when($search, function($query, $search) use ($attributes) {
-                $query->where(function($query) use ($attributes, $search) {
+        return function(string|array $attributes, $search, callable $modifyQuery = null) {
+            return $this->when($search, function($query, $search) use ($attributes, $modifyQuery) {
+                $query->where(function($query) use ($attributes, $search, $modifyQuery) {
                     collect($attributes)->each(function($attribute, $index) use ($query, $search) {
-                        $index === 0
-                        ? $query->whereLike($attribute, $search)
-                        : $query->orWhereLike($attribute, $search);
+
+                        if(\Str::contains($attribute, '.')) {
+                            list($relation, $field) = explode('.', $attribute);
+                            $index === 0
+                            ? $query->whereHas($relation, fn($query) => $query->whereLike($field, $search))
+                            : $query->orWhereHas($relation, fn($query) => $query->whereLike($field, $search));
+                        }
+                        else {
+                            $index === 0
+                            ? $query->whereLike($attribute, $search)
+                            : $query->orWhereLike($attribute, $search);
+                        }
+
+                    });
+                    $query->when(is_callable($modifyQuery), function($query) use ($modifyQuery) {
+                        return $modifyQuery($query);
                     });
                 });
             });
