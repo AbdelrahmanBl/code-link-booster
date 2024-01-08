@@ -18,7 +18,7 @@ class BuilderMixin
         };
     }
 
-    public function search()
+    public function whereSearch()
     {
         return function(string|array $attributes, $search) {
             return $this->when($search, function($query, $search) use ($attributes) {
