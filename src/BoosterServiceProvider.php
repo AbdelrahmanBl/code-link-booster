@@ -3,6 +3,7 @@
 namespace CodeLink\Booster;
 
 use CodeLink\Booster\Console\ArrayExportMakeCommand;
+use CodeLink\Booster\Console\BuilderMakeCommand;
 use CodeLink\Booster\Console\EnumMakeCommand;
 use CodeLink\Booster\Console\ReportMakeCommand;
 use CodeLink\Booster\Console\TransformerMakeCommand;
@@ -62,6 +63,7 @@ class BoosterServiceProvider extends ServiceProvider
             EnumMakeCommand::class,
             ArrayExportMakeCommand::class,
             TransformerMakeCommand::class,
+            BuilderMakeCommand::class,
         ]);
 
     }

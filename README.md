@@ -75,6 +75,10 @@ php artisan make:array-export FILE_NAME
 ```
 php artisan make:transformer FILE_NAME
 ```
+### Builders
+```
+php artisan make:builder FILE_NAME
+```
 
 # Documentation
 

@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Builder;
+
+class {{ class }} extends Builder
+{
+    public function search()
+	{
+		return $this->when(request('search'), function($query, $search) {
+			$query->whereSearch(['name'], $search);
+		});
+	}
+}
