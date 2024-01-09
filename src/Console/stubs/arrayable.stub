@@ -1,0 +1,22 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Contracts\Support\Arrayable;
+
+class {{ class }} implements Arrayable
+{
+    protected $model;
+
+    public function __construct(Model $model = null)
+    {
+        $this->model = $model;
+    }
+
+    public function toArray()
+    {
+        return [
+            'model' => $this->model ? $this->model : NULL,
+        ];
+    }
+}
