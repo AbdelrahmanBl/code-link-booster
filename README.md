@@ -142,6 +142,7 @@ You can select data from table by enter these parameters:
 - [ ] 2nd the column name for option's label.
 - [ ] 3rd the column name for option's value.
 > **_Note:_** You can customize the label/value key or define them from the booster config in `booster.transformers.select_box_table.label_key/value_key`.
+
 You can get label/value key name from the booster config by:
 ```
 Booster::getSelectBoxTableOptions(User::query()) 
