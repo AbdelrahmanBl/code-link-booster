@@ -138,11 +138,13 @@ Booster::verifyOtp('test@gmail.com', '0000');
 You can get options for select box from 3 different types.
 ### Table Options
 You can select data from table by enter these parameters:
-- [x] 1st the select query builder in the first parameter.
+- [x] 1st the select query builder.
 - [ ] 2nd the column name for option's label.
 - [ ] 3rd the column name for option's value.
 > **_Note:_** You can customize the label/value key or define them from the booster config in `booster.transformers.select_box_table.label_key/value_key`.
 ```
-getSelectBoxTableOptions(User::query()) # get label/value key name from the booster config
-getSelectBoxTableOptions(User::query(), 'id', 'name') # customize the label/value columns
+// get label/value key name from the booster config
+Booster::getSelectBoxTableOptions(User::query()) 
+// customize the label/value columns
+Booster::getSelectBoxTableOptions(User::query(), 'id', 'name') 
 ```
