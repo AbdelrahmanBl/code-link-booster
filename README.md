@@ -60,22 +60,35 @@ php artisan vendor:publish --tag=booster-stubs
 ## Commands
 You can create files by an artisan command.
 ### Reports
+Create a report class with a static generate method for chart report use. 
 ```
 php artisan make:report FILE_NAME
 ```
 ### Enums
+Create an enum class with CodeLink\Booster\Traits\EnumHandler trait that have these methods (names - values - options).
+names() return a collection of enum's names
+values() return a collection of enum's values
+options() return an array of options for select box. 
 ```
 php artisan make:enum FILE_NAME
 ```
 ### Array Exports
+Create an array export class that have toArray method for excel export handler (fields & values). 
 ```
 php artisan make:array-export FILE_NAME
 ```
+### Arrayable
+Create an arrayable class that have toArray method to prepare data for [Edit - Create] pages. 
+```
+php artisan make:arrayable FILE_NAME
+```
 ### Transformers
+Create a transformer class that have a transform method to prepare data for database or similar things.
 ```
 php artisan make:transformer FILE_NAME
 ```
 ### Builders
+Create a builder class that have methods for filterable queries.
 ```
 php artisan make:builder FILE_NAME
 ```
