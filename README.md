@@ -137,7 +137,7 @@ Booster::verifyOtp('test@gmail.com', '0000');
 ## Select Box Options
 You can get options for select box from 3 different types.
 ### 1- Table Options
-You can select data from table by enter these parameters:
+You can select data from a table by entering these parameters:
 - [x] 1st the select query builder.
 - [ ] 2nd the column name for option's label.
 - [ ] 3rd the column name for option's value.
@@ -152,7 +152,7 @@ Or customize the label/value columns by:
 Booster::getSelectBoxTableOptions(User::query(), 'id', 'name') 
 ```
 ### 2- Table Cast Options
-You can select data from table for a casting field by enter these parameters:
+You can select data from a table for a casting field by entering these parameters:
 - [x] 1st the select query builder.
 - [x] 2nd the extra select you must enter all the selected fields + the fields that the casting depending on.
 - [ ] 3rd the casting attribute/column name for option's label.
