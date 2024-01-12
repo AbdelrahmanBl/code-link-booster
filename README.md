@@ -154,7 +154,7 @@ Booster::getSelectBoxTableOptions(User::query(), 'id', 'name')
 ### 2- Table Cast Options
 You can select the data from a table for a casting fields by entering these parameters:
 - [x] 1st the select query builder.
-- [x] 2nd the extra select you must enter all the fields that you need to perform your select query.
+- [x] 2nd the extra select (you must enter all the fields that you need to perform your select query).
 - [ ] 3rd the casting attribute/column name for option's label.
 - [ ] 4th the casting attribute/column for option's value.
 > **_Note:_** You can customize the label/value key or define them from the booster config in `booster.transformers.select_box_table.label_key/value_key`.
