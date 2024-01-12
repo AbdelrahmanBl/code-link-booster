@@ -39,8 +39,8 @@ class MixedNotification extends Notification implements ShouldQueue
     {
         $this->body = $body;
         $this->translation = $translation;
-        $this->target = $target;
-        $this->targetId = $targetId;
+        $this->target = (string) $target;
+        $this->targetId = (string) $targetId;
         $this->via = $via;
     }
 
