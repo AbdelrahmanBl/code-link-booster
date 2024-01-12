@@ -137,7 +137,7 @@ Booster::verifyOtp('test@gmail.com', '0000');
 ## Select Box Options
 You can get options for select box from 3 different types.
 ### 1- Table Options
-You can select data from a table by entering these parameters:
+You can select the data from a table by entering these parameters:
 - [x] 1st the select query builder.
 - [ ] 2nd the column name for option's label.
 - [ ] 3rd the column name for option's value.
@@ -152,17 +152,17 @@ Or customize the label/value columns by:
 Booster::getSelectBoxTableOptions(User::query(), 'id', 'name') 
 ```
 ### 2- Table Cast Options
-You can select data from a table for a casting field by entering these parameters:
+You can select the data from a table for a casting fields by entering these parameters:
 - [x] 1st the select query builder.
-- [x] 2nd the extra select you must enter all the selected fields + the fields that the casting depending on.
+- [x] 2nd the extra select you must enter all the fields that you need to perform your select query.
 - [ ] 3rd the casting attribute/column name for option's label.
 - [ ] 4th the casting attribute/column for option's value.
 > **_Note:_** You can customize the label/value key or define them from the booster config in `booster.transformers.select_box_table.label_key/value_key`.
 
 You can get label/value when they represented as a casting attributes by:
 ```
-Booster::getSelectBoxTableCastOptions(User::query(), ['id', 'firstname', 'lastname', 'birthdate'], 'fullname', 'age') 
+Booster::getSelectBoxTableCastOptions(User::query(), ['firstname', 'lastname', 'birthdate'], 'fullname', 'age') 
 ```
-> **_Note:_** In the previous example we need to get all users and display thier `fullname` for the label key (that is a casting attribute = firstname . ' ' . lastname) and for the id key we have pass the casting attribute `age` which depends on the birthdate.
+> **_Note:_** In the previous example we need to get all the users and display thier `fullname` for the label key (that is a casting attribute = firstname . ' ' . lastname) and for the id key we have pass the casting attribute `age` which depends on the birthdate.
 
 ### 3- Enum Options
