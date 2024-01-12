@@ -106,9 +106,9 @@ return [
     'notifications' => [
 
         'via' => [
-            CodeLink\Booster\Enums\NotifyBy::DATABASE->value,
-            CodeLink\Booster\Enums\NotifyBy::MAIL->value,
-            CodeLink\Booster\Enums\NotifyBy::FCM->value,
+            CodeLink\Booster\Enums\NotifyBy::DATABASE,
+            CodeLink\Booster\Enums\NotifyBy::MAIL,
+            CodeLink\Booster\Enums\NotifyBy::FCM,
         ],
 
         'fcm_channel' => NULL, // \NotificationChannels\Fcm\FcmChannel::class,

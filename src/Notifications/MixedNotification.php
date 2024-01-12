@@ -52,7 +52,7 @@ class MixedNotification extends Notification implements ShouldQueue
     public function via(object $notifiable): array
     {
         if(empty($this->via)) {
-            return config('booster.notifications.via');
+            $this->via = config('booster.notifications.via');
         }
 
         if(is_array($this->via)) {
