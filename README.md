@@ -136,7 +136,7 @@ Booster::verifyOtp('test@gmail.com', '0000');
 
 ## Select Box Options
 You can get options for select box from 3 different types.
-### Table Options
+### 1- Table Options
 You can select data from table by enter these parameters:
 - [x] 1st the select query builder.
 - [ ] 2nd the column name for option's label.
@@ -151,3 +151,18 @@ Or customize the label/value columns by:
 ```
 Booster::getSelectBoxTableOptions(User::query(), 'id', 'name') 
 ```
+### 2- Table Cast Options
+You can select data from table for a casting field by enter these parameters:
+- [x] 1st the select query builder.
+- [x] 2nd the extra select you must enter all the selected fields + the fields that the casting depending on.
+- [ ] 3rd the casting attribute/column name for option's label.
+- [ ] 4th the casting attribute/column for option's value.
+> **_Note:_** You can customize the label/value key or define them from the booster config in `booster.transformers.select_box_table.label_key/value_key`.
+
+You can get label/value when they represented as a casting attributes by:
+```
+Booster::getSelectBoxTableCastOptions(User::query(), ['id', 'firstname', 'lastname', 'birthdate'], 'fullname', 'age') 
+```
+> **_Note:_** In the previous example we need to get all users and display thier `fullname` for the label key (that is a casting attribute = firstname . ' ' . lastname) and for the id key we have pass the casting attribute `age` which depends on the birthdate.
+
+### 3- Enum Options
