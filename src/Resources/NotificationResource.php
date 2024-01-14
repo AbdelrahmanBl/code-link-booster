@@ -4,6 +4,7 @@ namespace CodeLink\Booster\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Arr;
 
 class NotificationResource extends JsonResource
 {
@@ -24,7 +25,7 @@ class NotificationResource extends JsonResource
                     'title' => __("{$translation}.title"),
                     'body' => __(
                         "{$translation}.body",
-                        $this->data['body']
+                        Arr::translateValues($this->data['body'])
                     ),
                 ],
                 default => [
