@@ -110,7 +110,7 @@ To setup live server you can set the APP_ENV to production.
 You can send otp by email with default otp length from config `booster.services.otp_service.otp_length`
 You can customize email class `booster.services.otp_service.mailable`.
 You can customize email title `booster.services.otp_service.mailable_subject`.
-You can publish the markdown from booster-views tag or customize from config `booster.services.otp_service.mailable_markdown`. 
+You can publish the markdown from booster-views tag.
 ```
 Booster::sendOtpByEmail('test@gmail.com');
 ```

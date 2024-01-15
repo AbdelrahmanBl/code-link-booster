@@ -34,8 +34,7 @@ trait SendMailNotification
             $body = $this->body['body'];
         }
 
-        return (new MailMessage)
-                    ->subject($title)
-                    ->line($body);
+        return (new MailMessage)->subject($title)
+        ->markdown('booster::mail', compact('body'));
     }
 }

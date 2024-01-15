@@ -37,7 +37,7 @@ class OtpMail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: config('booster.services.otp_service.mailable_markdown')
+            markdown: 'booster::otp'
         );
     }
 }

@@ -67,8 +67,16 @@ class MixedNotification extends Notification implements ShouldQueue
 
     private function getRightVia($via)
     {
-        return $via === NotifyBy::FCM
-        ? config('booster.notifications.fcm_channel')
-        : $via->value;
+        if($via === NotifyBy::FCM) {
+            $fcmChannel = config('booster.notifications.fcm_channel');
+
+            if(! $fcmChannel) {
+                throw new \Exception('You are trying to send a notification by fcm but you need to configure `booster.notifications.fcm_channel`.');
+            }
+
+            return $fcmChannel;
+        }
+
+        return $via->value;
     }
 }

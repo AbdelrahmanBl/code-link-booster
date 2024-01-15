@@ -35,9 +35,6 @@ return [
             # Sms service to be used when sending sms by a gateway.
             'sms_service' => CodeLink\Booster\Services\Otp\SmsService::class,
 
-            # Mailable markdown for email html template.
-            'mailable_markdown' => 'booster::otp',
-
             # Mailable subject for email title.
             'mailable_subject' => env('BOOSTER_OTP_MAILABLE_SUBJECT', 'Otp'),
 
