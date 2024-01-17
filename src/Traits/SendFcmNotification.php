@@ -30,9 +30,12 @@ trait SendFcmNotification
      */
     public function toFcm($notifiable)
     {
+        $languageKey = config('booster.notifications.notifiable_language_key');
+        $locale = $notifiable->{$languageKey};
+
         if($this->translation) {
-            $title = __("{$this->translation}.title");
-            $body = __("{$this->translation}.body", Arr::translateValues($this->body));
+            $title = __("{$this->translation}.title", [], $locale);
+            $body = __("{$this->translation}.body", Arr::translateValues($this->body), $locale);
         }
         else {
             $title = $this->body['title'];

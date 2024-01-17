@@ -112,6 +112,8 @@ return [
 
         'fcm_service' => CodeLink\Booster\Services\FcmService::class,
 
+        'notifiable_language_key' => 'language',
+
     ],
 
     'requests' => [
