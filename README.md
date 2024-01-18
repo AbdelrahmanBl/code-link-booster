@@ -172,7 +172,7 @@ Booster::getSelectBoxTableCastOptions(User::query(), ['firstname', 'lastname', '
 You can select the data from an enum class by entering these parameters:
 - [x] 1st the cases that you want to get options for.
 - [ ] 2nd the locale path to translate the data for.
-> **_Note:_** You can customize the default locale path or define it from the booster config in `booster.transformers.enum_translation_file`.
+> **_Note:_** You can customize the default locale path or define it from the booster config in `booster.transformers.enum_translation_path`.
 
 You can get the options by the default locale path from the booster config by that way:
 ```

@@ -72,7 +72,7 @@ return [
     'transformers' => [
 
         # you can enter the translation file or path here to use for the enum options translation.
-        'enum_translation_file' => 'enums',
+        'enum_translation_path' => 'enums',
 
         /*
         |--------------------------------------------------------------------------

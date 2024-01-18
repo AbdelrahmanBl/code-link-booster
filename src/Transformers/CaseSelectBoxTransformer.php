@@ -11,7 +11,7 @@ class CaseSelectBoxTransformer
         }
 
         if(empty($locale)) {
-            $locale = config('booster.transformers.enum_translation_file') . '.' . class_basename($cases[0]);
+            $locale = config('booster.transformers.enum_translation_path') . '.' . class_basename($cases[0]);
         }
 
         return array_map(

@@ -212,7 +212,7 @@ class ChartBuilder
         }
 
         if(empty($locale)) {
-            $locale = config('booster.transformers.enum_translation_file') . '.' . class_basename($cases[0]);
+            $locale = config('booster.transformers.enum_translation_path') . '.' . class_basename($cases[0]);
         }
 
         $data = $builder->select($labelKey, DB::raw("COUNT($labelKey) as count"))
