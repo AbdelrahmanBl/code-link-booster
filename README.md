@@ -7,7 +7,6 @@ Kinldy run these commands in your root project directory.
 ```
 git submodule add https://github.com/AbdelrahmanBl/code-link-booster.git
 git submodule update --init
-
 ```
 Then go to composer.json and add to autoload.psr-4
 ```
@@ -147,13 +146,13 @@ You can select the data from a table by entering these parameters:
 - [ ] 3rd the column name for option's value.
 > **_Note:_** You can customize the label/value key or define them from the booster config in `booster.transformers.select_box_table.label_key/value_key`.
 
-You can get label/value key name from the booster config by:
+You can get the options by default label/value key name from the booster config by that way:
 ```
-Booster::getSelectBoxTableOptions(User::query()) 
+Booster::getSelectBoxTableOptions(User::query());
 ```
 Or customize the label/value columns by:
 ```
-Booster::getSelectBoxTableOptions(User::query(), 'id', 'name') 
+Booster::getSelectBoxTableOptions(User::query(), 'id', 'name');
 ```
 ### 2- Table Cast Options
 You can select the data from a table for a casting fields by entering these parameters:
@@ -165,8 +164,35 @@ You can select the data from a table for a casting fields by entering these para
 
 You can get label/value when they represented as a casting attributes by:
 ```
-Booster::getSelectBoxTableCastOptions(User::query(), ['firstname', 'lastname', 'birthdate'], 'fullname', 'age') 
+Booster::getSelectBoxTableCastOptions(User::query(), ['firstname', 'lastname', 'birthdate'], 'fullname', 'age');
 ```
 > **_Note:_** In the previous example we need to get all the users and display thier `fullname` for the label key (that is a casting attribute = firstname . ' ' . lastname) and for the id key we have pass the casting attribute `age` which depends on the birthdate.
 
 ### 3- Enum Options
+You can select the data from an enum class by entering these parameters:
+- [x] 1st the cases that you want to get options for.
+- [ ] 2nd the locale path to translate the data for.
+> **_Note:_** You can customize the default locale path or define it from the booster config in `booster.transformers.enum_translation_file`.
+
+You can get the options by the default locale path from the booster config by that way:
+```
+Booster::getSelectBoxEnumOptions(Sort::cases()); 
+```
+Or customize the locale translation path by:
+```
+Booster::getSelectBoxEnumOptions(Sort::cases(), 'enums.options.Sort'); 
+```
+
+Addition to you can get an enum cases as options directly from the enum class if using the `CodeLink\Booster\Traits\EnumHandler` trait inside your enum class 
+```
+App\Enums\Sort::options();
+```
+or customize the locale translation path by:
+```
+App\Enums\Sort::options('enums.options.Sort');
+```
+> **_Note:_** You can create the enum class by running this command and it will add the `EnumHandler` automatically to your class.
+
+```
+php artisan make:enum Sort
+```
