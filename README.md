@@ -6,8 +6,7 @@ Firstly, you must add the package as a submodule in your project.
 Kinldy run these commands in your root project directory.
 ```
 git submodule add https://github.com/AbdelrahmanBl/code-link-booster.git
-git submodule init
-git submodule update
+git submodule update --init
 
 ```
 Then go to composer.json and add to autoload.psr-4
@@ -17,6 +16,11 @@ Then go to composer.json and add to autoload.psr-4
 Then autoload the files by
 ```
 composer dump-autoload
+```
+> **_Note:_** when you deploy your project you must run this command or add them to your deployment script to install/update the submodule.
+
+```
+git submodule update --init
 ```
 
 ## Setup
