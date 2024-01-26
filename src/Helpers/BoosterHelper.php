@@ -100,14 +100,14 @@ class BoosterHelper
         return ChartBuilder::count($builder, $relation, $label, 'asc', $extraSelect);
     }
 
-    public function generateSumReportDesc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = []): array
+    public function generateSumReportDesc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = [], int $roundBy = 0): array
     {
-        return ChartBuilder::sum($builder, $relation, $sumKey, $label, 'desc', $extraSelect);
+        return ChartBuilder::sum($builder, $relation, $sumKey, $label, 'desc', $extraSelect, $roundBy);
     }
 
-    public function generateSumReportAsc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = []): array
+    public function generateSumReportAsc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = [], int $roundBy = 0): array
     {
-        return ChartBuilder::sum($builder, $relation, $sumKey, $label, 'asc', $extraSelect);
+        return ChartBuilder::sum($builder, $relation, $sumKey, $label, 'asc', $extraSelect, $roundBy);
     }
 
     public function generateAvgReportDesc(Builder $builder, string|array $relation, string $avgKey, string|callable $label = null, array $extraSelect = []): array

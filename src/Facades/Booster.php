@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static array generateMonthlyReportBeforeNow(Builder $builder, string $dateField = null)
  * @method static array generateCountReportDesc(Builder $builder, string|array $relation, string|callable $label = null, array $extraSelect = []): array
  * @method static array generateCountReportAsc(Builder $builder, string|array $relation, string|callable $label = null, array $extraSelect = []): array
- * @method static array generateSumReportDesc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = [])
- * @method static array generateSumReportAsc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = [])
+ * @method static array generateSumReportDesc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = [], int $roundBy = 0)
+ * @method static array generateSumReportAsc(Builder $builder, string|array $relation, string $sumKey, string|callable $label = null, array $extraSelect = [], int $roundBy = 0)
  * @method static array generateAvgReportDesc(Builder $builder, string|array $relation, string $avgKey, string|callable $label = null, array $extraSelect = [])
  * @method static array generateAvgReportAsc(Builder $builder, string|array $relation, string $avgKey, string|callable $label = null, array $extraSelect = [])
  * @method static array generateEnumReportDesc(Builder $builder, array $cases, string $labelKey = null, $locale = null): array
