@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'total' => 'Total',
     'otp' => 'Otp',
     'thanks' => 'Thanks',
     'sent_otp_message' => 'your otp is :otp valid until :minutes minutes.',

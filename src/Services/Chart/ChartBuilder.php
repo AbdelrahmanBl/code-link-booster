@@ -116,7 +116,7 @@ class ChartBuilder
      * @param  array $extraSelect
      * @return array
      */
-    public static function sum(Builder $builder, $relation, $sumKey, $label = null, $orderBy = 'desc', array $extraSelect = [], int $roundBy = 0): array
+    public static function sum(Builder $builder, $relation, $sumKey, $label = null, $orderBy = 'desc', array $extraSelect = [], int $roundBy = 0, bool $withTotal = false): array
     {
         $relationName = is_array($relation) ? array_key_first($relation) : $relation;
 
@@ -139,12 +139,18 @@ class ChartBuilder
         $chart = new Chart();
         $colors = config('booster.services.chart_service.dummy_colors')::toArray();
 
+        // assign chart summation's values...
         foreach($data as $index => $item) {
             $chart->add(
                 is_callable($label) ? $label($item) : $item->{$label},
                 round($item->{$relationKey}, $roundBy),
                 $colors[$index]
             );
+        }
+
+        // add total of the summations...
+        if($withTotal) {
+            $chart->add(__('booster::message.total'), round(collect($chart->data)->sum('value'), $roundBy));
         }
 
         return $chart->data;

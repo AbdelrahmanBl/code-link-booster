@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'total' => 'الاجمالي',
     'otp' => 'رمز التفعيل',
     'thanks' => 'شكرا',
     'sent_otp_message' => 'كود التفعيل الخاص بك هو :otp صالح لمدة :minutes دقائق.',
