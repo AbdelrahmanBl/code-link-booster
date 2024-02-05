@@ -149,5 +149,7 @@ return [
 
         'per_page' => 15,
 
+        'per_page_key' => 'per_page',
+
     ],
 ];

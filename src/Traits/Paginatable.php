@@ -6,6 +6,6 @@ trait Paginatable
 {
     public function getPerPage()
     {
-        return request('per_page') ?? config('booster.paginatable.per_page');
+        return request(config('booster.paginatable.per_page_key')) ?? config('booster.paginatable.per_page');
     }
 }
