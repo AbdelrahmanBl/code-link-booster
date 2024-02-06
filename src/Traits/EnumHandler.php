@@ -7,18 +7,18 @@ use Illuminate\Support\Collection;
 
 trait EnumHandler
 {
-    public static function names(): Collection
+    public static function names(string $static = 'cases'): Collection
     {
-        return collect(array_column(static::cases(), 'name'));
+        return collect(array_column(static::$static(), 'name'));
     }
 
-    public static function values(): Collection
+    public static function values(string $static = 'cases'): Collection
     {
-        return collect(array_column(static::cases(), 'value'));
+        return collect(array_column(static::$static(), 'value'));
     }
 
-    public static function options($locale = null): array
+    public static function options(string $static = 'cases', $locale = null): array
     {
-        return Booster::getSelectBoxEnumOptions(static::cases(), $locale);
+        return Booster::getSelectBoxEnumOptions(static::$static(), $locale);
     }
 }
