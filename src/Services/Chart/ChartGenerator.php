@@ -113,6 +113,7 @@ class ChartGenerator
     private function getChartBody(Chart $chart): array
     {
         return [
+            'uuid' => Str::uuid(),
             'title' => $chart->title,
             'chartData' => $chart->data,
             'fullWidth' => $chart->fullWidth,
