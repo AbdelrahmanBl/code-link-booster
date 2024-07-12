@@ -11,6 +11,7 @@ class DummyColors implements StaticArrayable
         return [
             '#41B883',
             '#E46651',
+            '#ebb90a',
             '#751999',
             '#a19fcf',
             '#9cde0b',
