@@ -3,9 +3,12 @@
 namespace {{ namespace }};
 
 use Illuminate\Database\Eloquent\Builder;
+use CodeLink\Booster\Traits\HasBuilderFilter;
 
 class {{ class }} extends Builder
 {
+    use HasBuilderFilter;
+
     public function search()
 	{
 		return $this->when(request('search'), function($query, $search) {
