@@ -22,6 +22,18 @@ trait HasBuilderFilter
     }
 
     /**
+     * Method to filter boolean columns.
+     *
+     * @param array $attributes [the filter key name => the database field name]
+     *
+     * @return $this
+     */
+    public function booleanFilters($attributes)
+    {
+        return $this->handleFilters($attributes, 'booleanFilter');
+    }
+
+    /**
      * Method to filter columns by equal operator.
      *
      * @param string $key [the filter key name]
@@ -36,6 +48,39 @@ trait HasBuilderFilter
         return $this->when(request($key), function($query, $value) use ($attribute) {
             $query->where($attribute, $value);
         });
+    }
+
+    /**
+     * Method to filter columns by equal operator.
+     *
+     * @param array $attributes [the filter key name => the database field name]
+     *
+     * @return $this
+     */
+    public function equalFilters($attributes)
+    {
+        return $this->handleFilters($attributes, 'equalFilter');
+    }
+
+    /**
+     * Method to filter columns by equal operator.
+     *
+     * @param array $attributes [the filter key name => the database field name]
+     * @param string $methodName [the filter method name]
+     *
+     * @return $this
+     */
+    public function handleFilters($attributes, $methodName)
+    {
+        foreach($attributes as $key => $attribute) {
+            if(is_int($key)) {
+                $key = $attribute;
+            }
+
+            $this->{$methodName}($key, $attribute);
+        }
+
+        return $this;
     }
 
     /**
