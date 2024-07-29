@@ -41,6 +41,6 @@ class Colors extends DummyColors
      */
     public static function black()
     {
-        return parent::toArray()[11];
+        return parent::toArray()[16];
     }
 }
