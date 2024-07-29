@@ -33,4 +33,14 @@ class Colors extends DummyColors
     {
         return parent::toArray()[2];
     }
+
+    /**
+     * Get the hexa of the black color...
+     *
+     * @return string
+     */
+    public static function black()
+    {
+        return parent::toArray()[11];
+    }
 }
